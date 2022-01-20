@@ -65,3 +65,7 @@ http://cvarin.github.io/CSci-Survival-Guide/leapfrog.html
 ## Tutorial on Kepler orbits
 [kepler.pdf](kepler.pdf)
 
+## Added reading material for Assignment I
+[kepler_py.pdf](kepler_py.pdf)
+
+[stoermer-verlet.pdf](stoermer-verlet.pdf)
