@@ -11,5 +11,5 @@ header line of initc.data has 5 data: # of particles, eta=0.02, dt, tmax, epsilo
 sphere.data has 4 columns: mass, x, y, z
 
 ```bash
-gcc -o xnbody nbody0-ang.c -lm
+./xnbody initc.data
 ```
