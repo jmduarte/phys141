@@ -1,8 +1,8 @@
 # phys141
 
 ## Assignments
-- [assignment1](assignment1)
+- [assignments/assignment1](assignment1)
 
 ## Labs
-- [lab1](lab1)
-- [lab2](lab2)
+- [labs/lab1](lab1)
+- [labs/lab2](lab2)
