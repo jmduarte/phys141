@@ -1,0 +1,337 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{palatino}
+\usepackage{mathpazo}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{braket}
+\usepackage{relsize}
+\usepackage{color, colortbl}
+\usepackage{booktabs}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{darkblue}{RGB}{46,48,147}
+\hypersetup{colorlinks=true,
+            linkcolor=darkblue,
+            urlcolor=darkblue,
+            citecolor=darkblue}
+\definecolor{Gray}{gray}{0.9}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightRed}{rgb}{1,0.92,0.92}
+\newcommand{\solColor}{blue}
+\newcommand{\sol}{\color{\solColor}}
+\newcommand*\publistbasestyle{phys}
+\usepackage[style=publist,
+biblabel=brackets,
+sorting=dt,
+plauthorhandling=highlight,
+nameorder=given-family,
+]{biblatex}
+\DeclareSourcemap{
+ \maps[datatype=bibtex,overwrite=true]{
+  \map{
+    \step[fieldsource=Collaboration, final=true]
+    \step[fieldset=usera, origfieldval, final=true]
+  }
+ }
+}
+\renewbibmacro*{author}{
+  \iffieldundef{usera}{
+    \printnames{author}
+  }{
+    \printfield{usera} Collaboration
+  }
+}
+\addbibresource{syllabus.bib}
+\begin{document}
+
+\begin{center}
+  \textbf{
+    University of California San Diego\\
+    Department of Physics\\
+    Physics 141/241, Spring 2023\\
+    Computational Physics I: Probabilistic Models and Simulations (4 units)
+  }
+\end{center}
+
+\noindent\textbf{Instructor}: Javier Duarte, \href{mailto:jduarte@ucsd.edu}{jduarte@ucsd.edu}, OH MWF 3-4pm, MYR-A 5513, \href{https://ucsd.zoom.us/j/93760926244}{Zoom: 93760926244}\\
+\noindent \textbf{Teaching assistant}: Yi Guo, \href{mailto:yig053@ucsd.edu}{yig053@ucsd.edu}, OH During Lab, \href{https://ucsd.zoom.us/j/97611399908}{Zoom: 97611399908}\\
+
+\noindent\textbf{Course webpage}:\\
+\hspace*{1cm}Login through \href{http://canvas.ucsd.edu}{http://canvas.ucsd.edu}. 
+All assignments will be due through Gradescope.\\
+
+\noindent\textbf{Schedule}:
+\begin{center}
+  \begin{tabular}{|l|c|l|m{90mm}|}
+    \hline
+    Lecture & MWF  & 2:00--2:50p    & WLH 2208, \href{https://ucsd.zoom.us/j/96620851378}{Zoom: 96620851378}   \\\hline
+    Lab     & TuTh & 11:00a--12:20p & MYR-A 4623, \href{https://ucsd.zoom.us/j/97611399908}{Zoom: 97611399908} \\\hline\end{tabular}
+\end{center}
+
+\noindent\textbf{First lecture}: Monday, April 3, 2023.\\ 
+\textbf{First lab}: Tuesday, April 11, 2023.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Textbook}: There is no required textbook for this course.
+At the end of the syllabus, we list a bibliography of (mostly free) textbooks and online resources we will draw from.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Course information}: This course is an upper-division undergraduate course and introductory graduate course on computational physics, focusing on large-scale deterministic simulations of collective systems.
+Basic knowledge of calculus, Newtonian mechanics, Linux, and programming in some language is expected.
+
+The course structure will consist of weekly lectures on conceptual topics, e.g, Newtonian mechanics, and lab sections on computational tools, e.g., programming in Python and C/C++.
+Students will learn how to apply physical reasoning to programming, optimize and debug code, create simulations of physical systems.
+We will focus primarily on solving the $N$-body problem: predicting the individual motions of a group of celestial objects interacting with each other gravitationally.
+Through this problem, we will study increasingly accurate methods, including Euler, Runge-Kutta, leap-frog integration, tree-code methods, and Dehnen's algorithm (i.e., gyrfalcON).
+Students will also learn how to use modern tools to efficiently solve scientific computing problems interpreted (Python) vs. compiled (C/C++) languages and how to link the two.
+There will be 3 homework assignments.
+There will also be a midterm and final project in which students will work in groups to reproduce the motion of one of 3 observed systems.
+
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Student learning outcomes}: Upon successful completion of Physics 141/241, students will be able to:
+\begin{itemize}
+  \item Design computer programs to numerically solve physics problems, like the $N$-body problem.
+  \item Consider multiple approaches and compare their computational performance, accuracy, and fidelity to physical laws.
+  \item Find and choose the best tool or programming language for the task.
+  \item Visualize the solutions.
+  \item Collaborate with peers to tackle complex, realistic problems.
+  \item Present findings.
+\end{itemize}
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Grading policy}: Your final course grade will be determined according to the following:
+\begin{itemize}
+  \item 40\% Homework.
+  \item 10\% Quizzes.
+  \item 5\% Participation in class, via Slack, and completion of exit tickets.
+  \item 20\% Midterm project.
+  \item 25\% Final project.
+\end{itemize}
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Drop policy}: The lowest homework score is dropped automatically.
+This drop policy is designed to account for any and all illnesses, family, medical, mental, or other emergencies.
+
+If you have an extended emergency (e.g., a long hospital stay) that hinders your ability to turn complete assignments beyond the emergency policy allowance, contact the professor directly as soon as the situation arises.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Discussion board}: We will use Slack: \href{https://join.slack.com/t/ucsdphys139/shared\_invite/zt-110gwd4lx-pZBsItfcxhbOD5BV6afVDA}{ucsdphys139.slack.com}
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+
+\noindent\textbf{Homework}: Homework assignments will be submitted as code and a report on Gradescope.
+
+There will be a first deadline to submit a ``draft'' version of the homework, which will be graded based on effort and completeness.
+
+There will be a second deadline to submit a ``corrected'' version of the homework, which will be graded based on effort and correctness.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Midterm \& final projects}:
+For the midterm and final projects, students will work in groups of $\sim$4 to reproduce the motion of an observed system.
+The project deliverables are: (1) code provided as a public GitHub repository, (2) a 20-minute presentation by all members of the group, and (3) self and peer evaluations for group contributions.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Attendance (lectures and labs)}: In-person lecture attendance is not required, but strongly recommended.
+Lecture will be mostly conceptual while labs will include hands-on portions, with interactive problem-solving and pair programming throughout.
+These sessions will be recorded.
+
+\emph{Exit tickets}: At the end of each class, you will be invited to fill out an \href{https://forms.gle/b7ZDZRm1czrnHaGBA}{exit ticket}.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Academic integrity}: Please read the College Policies section of the \href{http://senate.ucsd.edu/Operating-Procedures/Senate-Manual/Appendices/2}{UCSD’s Policy on Integrity of Scholarship}.
+These rules will be enforced.
+Cheating includes, but is not limited to: submitting another person's work as your own, copying from any person/source, and using any unauthorized materials or aids during exams.
+
+For homework assignments, copying from an online solution, a peer's solution, a Chegg solution, or shared work (on Discord, for example) is considered cheating.
+Collaboration is encouraged, but by the time you start writing your own solution to turn in, you should not be looking at any other source.
+You should know the rough outline of the solution well enough that you do not need to reference something line-by-line.
+Plagiarizing a solution but changing variable names is considered cheating.
+Soliciting help online via Chegg, Quora, etc. is considered cheating.
+If suspected, you might be asked to rework similar problems in a Zoom one-on-one meeting with the instructor and/or TA.
+
+Any questions on what constitutes an academic integrity violation should be addressed to the instructor; any violation of academic integrity will result in immediate reporting to the UCSD Office of Academic Integrity, and can result in an automatic ``F'' for the course at the discretion of the instructor.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{Counseling and Psychological Services (CAPS):} The mission of CAPS is to promote the personal, social, and emotional growth of students.
+Many services are available to UCSD students including individual, couples, and family counseling, groups, workshops, and forums, consultations and outreach, psychiatry, and peer education.
+To make an appointment, call (858) 534-755.
+For more information, visit \href{https://wellness.ucsd.edu/caps/}{https://wellness.ucsd.edu/caps/}.
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+
+\noindent\textbf{\emph{Schedule}} (Subject to change):\\
+
+\noindent\textbf{Week 1}
+
+\emph{Monday 4/3}: \underline{Lecture}: Course overview, galaxy collisions, preview of the final projects
+
+\emph{Tuesday 4/4}: \textbf{No class}
+
+\emph{Wednesday 4/5}: \underline{Lecture}: Newtonian, Hamiltonian, Lagrangian mechanics
+
+\emph{Thursday 4/6}: \textbf{No class}
+
+\emph{Friday 4/7}: \underline{Lecture}: Numerical methods: Euler, Runge-Kutta, Verlet, leapfrog integration
+
+\noindent\textbf{Week 2}
+
+\emph{Monday 4/10}: \underline{Lecture}: Numerical methods (continued): 
+
+\emph{Tuesday 4/11}: \underline{Lab}: Python, Jupyter, and DataHub
+
+\emph{Wednesday 4/12}: \underline{Lecture}: Phase space, Hamiltonian mechanics, symplectic integrators
+
+\emph{Thursday 4/13}: \underline{Lab}: NumPy, SciPy, Numba, and Matplotlib
+
+\emph{Friday 4/14}: \underline{Lecture}: Gravitational potential and $N$-body equations
+
+\noindent\textbf{Week 3}
+
+\emph{Monday 4/17}: \underline{Lecture}: Orbits in spherical potentials, virial parameters
+
+\emph{Tuesday 4/18}: \underline{Lab}: Introduction to C/C++
+
+\emph{Wednesday 4/19}: \underline{Lecture}: Collisionless Boltzmann equation (CBE); \textbf{Homework 1 due}
+
+\emph{Thursday 4/20}: \underline{Lab}: Introduction to C/C++ (continued)
+
+\emph{Friday 4/21}: \underline{Lecture}: CBE (continued)
+
+\noindent\textbf{Week 4}
+
+\emph{Monday 4/24}: \underline{Lecture}: Plummer's sphere
+
+\emph{Tuesday 4/25}: \underline{Lab}: Nemo + GLNemo2 tutorial
+
+\emph{Wednesday 4/26}: \underline{Lecture}: Plummer's sphere (continued)
+
+\emph{Thursday 4/27}: \underline{Lab}: Nemo tools (concatenating, splitting, rotating, displacing snapshots); How to read documentation
+
+\emph{Friday 4/28}: \textbf{No class}
+
+\noindent\textbf{Week 5}
+
+\emph{Monday 5/1}: \textbf{No class}
+
+\emph{Tuesday 5/2}: \underline{Lab}: Midterm project assignment and overview
+
+\emph{Wednesday 5/3}: \underline{Lecture}: Galaxy modeling: isothermal sphere and king model
+
+\emph{Thursday 5/4}: \underline{Lab}: Open session
+
+\emph{Friday 5/5}: \underline{Lecture}: Galaxy modeling: isothermal sphere and king model (continued)
+
+\noindent\textbf{Week 6}
+
+\emph{Monday 5/8}: \underline{Lecture}: 
+
+\emph{Tuesday 5/9}: \underline{Lab}:
+
+\emph{Wednesday 5/10}: \underline{Lecture}: Galaxy modeling: isothermal sphere and king model
+
+\emph{Thursday 5/11}: \underline{Lab}:
+
+\emph{Friday 5/12}: \underline{Lecture}: Galaxy modeling: isothermal sphere and king model (continued)
+
+\noindent\textbf{Week 7}
+
+\emph{Monday 5/15}: \underline{Lecture}: Bulge and halo distribution functions
+
+\emph{Tuesday 5/16}: \underline{Lab}:
+
+\emph{Wednesday 5/17}: \underline{Lecture}: Bulge and halo distribution functions (continued); \textbf{Midterm due}
+
+\emph{Thursday 5/18}: \underline{Lab}:
+
+\emph{Friday 5/19}: \underline{Lecture}: Bulge and halo distribution functions (continued)
+
+\noindent\textbf{Week 8}
+
+\emph{Monday 5/22}: \underline{Lecture}: Final project overview
+
+\emph{Tuesday 5/23}: \underline{Lab}:
+
+\emph{Wednesday 5/24}: \underline{Lecture}: Midterm/final discussion (continued);  \textbf{Homework 3 due}
+
+\emph{Thursday 5/25}: \underline{Lab}:
+
+\emph{Friday 5/26}: \underline{Lecture}: Midterm/final discussion (continued)
+
+
+\noindent\textbf{Week 9}
+
+
+\emph{Monday 5/29}: \textbf{No class}
+
+\emph{Tuesday 5/30}: \underline{Lab}:
+
+\emph{Wednesday 5/31}: \underline{Lecture}: Hierarchical tree method
+
+\emph{Thursday 6/1}: \underline{Lab}:
+
+\emph{Friday 6/2}: \underline{Lecture}: GyrfalcON: force algorithm with complexity $\mathcal{O}(N)$
+
+
+\noindent\textbf{Week 10}
+
+\emph{Monday 6/5}: \underline{Lecture}: 
+
+\emph{Tuesday 5/30}: \underline{Lab}: Team presentations
+
+\emph{Wednesday 5/31}: \underline{Lecture}: 
+
+\emph{Thursday 6/1}: \underline{Lab}: Team presentations
+
+\emph{Friday 6/2}: \underline{Lecture}: 
+
+
+
+\begin{center}
+  \rule{\textwidth}{0.5pt}
+\end{center}
+\nocite{*}
+
+\noindent\textbf{\emph{Bibliography}}:\\
+\end{document}

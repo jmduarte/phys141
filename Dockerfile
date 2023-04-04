@@ -1,4 +1,4 @@
-FROM ucsdets/datahub-base-notebook:2022.1-stable
+FROM ucsdets/datahub-base-notebook:2023.2-stable
 
 LABEL maintainer="Javier Duarte <jduarte@ucsd.edu>"
 
@@ -16,10 +16,11 @@ RUN chmod +x /run_jupyter.sh
 
 # Install nemo
 RUN wget https://teuben.github.io/nemo/install_nemo
-SHELL ["/bin/tcsh", "-c", "source install_nemo nemo=nemo"]
+SHELL ["/bin/tcsh", "-c", "source install_nemo nemo=nemo glnemo=1 ubuntu=1"]
 
 # Run env
 RUN chmod +x nemo/nemo_start.sh
+
 
 # Fix permissions
 RUN fix-permissions /home/$NB_USER

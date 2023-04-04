@@ -163,3 +163,4 @@ dmypy.json
 
 # emacs
 *~
+.DS_Store
