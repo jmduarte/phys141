@@ -17,7 +17,7 @@ jobs:
     - name: Setup Miniconda
       uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-environment: phys139
+        activate-environment: phys141
         environment-file: environment.yml
         python-version: 3.9
         auto-activate-base: false
@@ -37,7 +37,7 @@ jobs:
       run: |
         jupyter contrib nbextension install --user
         jupyter nbextension enable --py widgetsnbextension
-        jupyter-book build notebooks
+        jupyter-book build .
 
     - name: Compile LaTeX
       uses: docker://xucheng/texlive-full:latest

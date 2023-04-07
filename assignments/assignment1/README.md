@@ -28,7 +28,7 @@ Running the program as supplied yields the trajectory of a point starting at `(X
 The total number of steps taken, number of steps between outputs, and time step used are determined by the parameters `mstep`, `nout`, `dt`, respectively.
 These parameters are set in the main procedure of the program.
 
-## Problem 1 (141/241)
+## Problem 1 (141/241) [10 points]
 (a) Modify the statements which set up initial conditions in the main program to produce trajectories starting from the points `(2, 0)` and `(0, 3)`.
 On the `(x, v)` plane, plot these trajectories (e.g. Matplotlib, or your favorite plotting platform) together with the one starting from `(1, 0)`.
 
@@ -38,7 +38,7 @@ On the `(x, v)` plane, plot these trajectories (e.g. Matplotlib, or your favorit
 
 (d) Make two-dimensional `(x, v)` plots and three-dimensional `(x, v, t)` plots for (a) and (b).
 
-## Problem 2 (141/241)
+## Problem 2 (141/241) [10 points]
 (a) Write leapfrog code for Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, orbiting around the Sun.
 Put the Sun at the origin of your coordinate system.
 Do some web-based research for setting up the initial conditions to have realistic scales of the orbits.
@@ -47,7 +47,7 @@ Ignore the interactions of the planets in the time integration and keep the Sun 
 
 (b) Make a composite plot of all the planetary orbits you calculated.
 
-## Problem 3 (141/241)
+## Problem 3 (141/241) [10 points]
 (a) Compare your numerically integrated orbits to the analytic form of the elliptic orbits for Earth and Mars.
 Investigate the error behavior over the growing number of revolutions of the planets.
 Do you detect a deterioration with the number of revolutions growing?
@@ -57,13 +57,13 @@ Each planet will have its own plot.
 
 (c) Animate Earth's motion in Matplotlib (or some other application of your choice) over many revolutions.
 
-## Problem 4 (for Physics 141/241)
+## Problem 4 (for Physics 141/241) [10 points]
 Prove the exact conservation of angular momentum of the discretized leapfrog-Verlet algorithm on Kepler orbits.
 
-## Problem 5 (for Physics 241 only)
+## Problem 5 (for Physics 241 only) [10 points]
 Calculate and plot the orbit of the Halley comet (read about the comet and its orbit in [Wikipedia](https://en.wikipedia.org/wiki/Halley%27s_Comet)).
 
-## Problem 6 (for Physics 241 only)
+## Problem 6 (for Physics 241 only) [10 points]
 Put the Halley comet and Earth in the same animation and demonstrate one full Halley year.
 See [Wikipedia](https://en.wikipedia.org/wiki/Halley%27s_Comet) and the [comet table](https://en.wikipedia.org/wiki/List_of_numbered_comets) for more information.
 
@@ -72,5 +72,5 @@ See [Wikipedia](https://en.wikipedia.org/wiki/Halley%27s_Comet) and the [comet t
 - [Tutorial for Leapfrog Integration](leapfrog.pdf)
 - [Leapfrog Python tutorial](http://cvarin.github.io/CSci-Survival-Guide/leapfrog.html)
 - [Kepler orbit tutorial](kepler.pdf)
-- [kepler_py.pdf](kepler_py.pdf)
-- [stoermer-verlet.pdf](stoermer-verlet.pdf)
+- [The Kepler problem](kepler_py.pdf)
+- [Geometric numerical integration illustrated by the Stoermer–Verlet method](stoermer-verlet.pdf)
