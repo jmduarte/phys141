@@ -7,7 +7,8 @@ parts:
       title: "Lecture 01: Introduction"
     - url: https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf
       title: "Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics"
-    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical.pdf
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf
       title: "Lecture 03: Numerical Integration Methods"
+    - file: lectures/03_Numerical_Methods.ipynb
     - file: assignments/assignment1/README.md
-      title: "Homework 1 (due Week 2)"
+      title: "Assignment 1 (due Week 2)"
