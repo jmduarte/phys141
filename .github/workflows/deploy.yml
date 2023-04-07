@@ -50,13 +50,13 @@ jobs:
 
     - name: Copy syllabus and homework for deployment
       run: |
-        cp syllabus/syllabus.pdf notebooks/_build/html/syllabus.pdf
+        cp syllabus/syllabus.pdf _build/html/syllabus.pdf
 
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3.9.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: notebooks/_build/html
+        publish_dir: _build/html
         force_orphan: true
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
