@@ -1,0 +1,13 @@
+format: jb-book
+root: README.md
+parts:
+  - caption: Week 1
+    chapters:
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/01_Introduction.pdf
+      title: "Lecture 01: Introduction"
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf
+      title: "Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics"
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical.pdf
+      title: "Lecture 03: Numerical Integration Methods"
+    - file: assignments/assignment1/README.md
+      title: "Homework 1 (due Week 2)"
