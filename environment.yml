@@ -1,0 +1,16 @@
+name: phys141
+channels:
+    - conda-forge
+dependencies:
+    - python=3.9
+    - numpy
+    - scikit-learn
+    - matplotlib
+    - tqdm
+    - pip
+    - pip:
+      - jupyter-book
+      - requests
+      - ipywidgets
+      - widgetsnbextension
+      - jupyter_contrib_nbextensions
