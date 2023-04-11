@@ -12,3 +12,6 @@ parts:
     - file: lectures/03_Numerical_Methods.ipynb
     - file: assignments/assignment1/README.md
       title: "Assignment 1 (due Week 2)"
+  - caption: Week 2
+    chapters:
+    - file: labs/lab1/Lab1.ipynb
