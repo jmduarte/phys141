@@ -6,9 +6,9 @@ Instructor: Javier Duarte
 
 Spring 2023
 
-Due date: _Friday, April 15, 2023 5pm_
+Due date: _Friday, April 14, 2023 5pm_
 
-Total points: 30
+Total points: 10
 
 ## Submission Instructions
 
@@ -37,7 +37,7 @@ Prove that if you start from the end point in the time-reversed problem $x'_{n} 
 Hint: recall that $\Delta t' = - \Delta t$.
  
 
-## Problem 2 (141/241) [20 points]
+## Problem 2 (141/241) [10 points]
 For a uniform sphere of mass $M$ with radius $R$, prove that the gravitational potential $\Phi$ inside the sphere is related to the mass density $\rho$ by the following equation (from lecture 5):
 
 $$
