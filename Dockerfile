@@ -7,7 +7,7 @@ USER root
 # Install tcsh xorg-dev gfortran emacs
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y \
-    libtinfo5 tcsh xorg-dev gfortran g++ man emacs && \
+    libtinfo5 tcsh xorg-dev gfortran g++ man emacs ffmpeg imagemagick && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
