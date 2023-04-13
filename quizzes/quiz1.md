@@ -23,7 +23,7 @@ $$
 \begin{align}
 v_{n+1/2} & = v_n + a(x_n) \Delta t / 2\\
 x_{n+1} &= x_n + v_{n+1/2} \Delta t \\
-v_{n+1} &= v_{n+1/2} + a(x_{n+1}) \Delta t 
+v_{n+1} &= v_{n+1/2} + a(x_{n+1}) \Delta t / 2
 \end{align}
 $$
 
