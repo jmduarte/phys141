@@ -1,4 +1,4 @@
-FROM ucsdets/datahub-base-notebook:2023.2-stable
+FROM ucsdets/scipy-ml-notebook:2023.2-stable
 
 LABEL maintainer="Javier Duarte <jduarte@ucsd.edu>"
 
@@ -21,6 +21,8 @@ SHELL ["/bin/tcsh", "-c", "source install_nemo nemo=nemo glnemo=1 ubuntu=1"]
 # Run env
 RUN chmod +x nemo/nemo_start.sh
 
+RUN mamba install -y -c conda-forge \
+    cupy
 
 # Fix permissions
 RUN fix-permissions /home/$NB_USER
