@@ -19,3 +19,4 @@ parts:
     - url: https://jduarte.physics.ucsd.edu/phys141/lectures/05_NBody.pdf
       title: "Lecture 05: N-Body Problem"
     - file: quizzes/quiz1.md
+    - file: labs/lab2/Lab2_Numba.ipynb
