@@ -164,3 +164,6 @@ dmypy.json
 # emacs
 *~
 .DS_Store
+
+# Yi's modifications
+plots/
