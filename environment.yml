@@ -5,6 +5,7 @@ dependencies:
     - python=3.9
     - numpy
     - ffmpeg
+    - imagemagick
     - scikit-learn
     - matplotlib
     - tqdm
