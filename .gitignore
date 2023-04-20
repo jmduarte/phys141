@@ -166,4 +166,4 @@ dmypy.json
 .DS_Store
 
 # Yi's modifications
-plots/
+.vscode/
