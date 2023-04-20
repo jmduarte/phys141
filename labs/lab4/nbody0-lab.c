@@ -70,7 +70,7 @@ int main()
 
     /* record the end time */
     time_t endTime = time(NULL);
-    printf("Elapsed time: %f seconds", difftime(endTime, startTime));
+    printf("\n----------\nElapsed time: %f seconds\n", difftime(endTime, startTime));
 
     return 0;
 }
