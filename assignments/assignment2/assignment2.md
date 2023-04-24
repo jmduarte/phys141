@@ -7,9 +7,9 @@ Spring 2023
 
 Due date for first version: Friday, May 5, 2023 8pm_
 
-Due date for corrected version: Wednesday, May 19, 2023 8pm_
+Due date for corrected version: Wednesday, May 9, 2023 8pm_
 
-Total points: 110 [141], 150 [241]
+Total points: 90 [141], 130 [241]
 
 ## Policies
 You are free to collaborate on all the problems, subject to the collaboration policy stated in the syllabus.
