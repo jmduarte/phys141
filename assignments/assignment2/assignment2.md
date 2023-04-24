@@ -37,7 +37,7 @@ The assigned merit points are for sub-tasks of Assignment II, separate for the P
  ## Problem 1: Plummer Sphere
 
 (a) [50 points] Using your own code, generate the point distribution in $(x, y, z, v_x, v_y, v_z)$ phase space for the Plummer sphere with 100,000 points as discussed in lecture and [this lab note](Plummer_Labnote.pdf).
-The mass of the sphere is $M=10^11 M_{\odot}$ and the radius is $a = 1.5$ kpc. 
+The mass of the sphere is $M=10^{11} M_{\odot}$ and the radius is $a = 1.5$ kpc. 
 Note: the `mkplummer` app of Nemo is not acceptable as your solution.
 
 (b) [20 points] Plot the corresponding theoretical mass density distribution $\rho(r)$ as a function of the radial distance from the origin and compare it with your point mass distribution.
