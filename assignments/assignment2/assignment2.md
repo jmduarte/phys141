@@ -40,16 +40,18 @@ The assigned merit points are for sub-tasks of Assignment II, separate for the P
 The mass of the sphere is $M=10^{11} M_{\odot}$ and the radius is $a = 1.5$ kpc. 
 Note: the `mkplummer` app of Nemo is not acceptable as your solution.
 
-(b) [20 points] Plot the corresponding theoretical mass density distribution $\rho(r)$ as a function of the radial distance from the origin and compare it with your point mass distribution.
+(b) [20 points] Plot the corresponding theoretical mass density distribution as a function of the radial distance from the origin $P(r) = 4\pi r^2\rho(r)$ and compare it with your point mass distribution.
 Use a histogram for the distribution.
 
-(c) [20 points] Calculate the histogram of the energy distribution of the phase space points and compare it with the analytic expression $P(q) \propto g(q) = q^2(1-q^2)^{7/2}$ where $q=v/v_e$ and $v_e=\sqrt{-2\Phi(r)}$ is the escape velocity at radius $r$.
+*Hint*: You may need to normalize your distributions appropriately to compare them on the same scale.
+
+(c) [20 points] Calculate the histogram of the energy $E=\frac{1}{2}v^2+\Phi(r)$ distribution of the phase space points and compare it with the analytic expression $f \propto (-E)^{7/2}$.
 
 (d) [241 only, 20 points] Show evidence that your velocity distribution agrees with the expected theoretical distribution at some value of $r$.
 
-Hint: Consider points in thin spherical shell at around radius $r$.
+*Hint*: Consider points in thin spherical shell around radius $r$.
 
-(e) [241 only, 20 points] Based on the Plummer model provided in lecture, prove Eq. (6) of [this note](Plummer_Labnote.pdf), namly that the total energy is given by
+(e) [241 only, 20 points] Based on the Plummer model provided in lecture, prove Eq. (6) of [this note](Plummer_Labnote.pdf), namely that the total energy is given by
 
 $$
 \mathcal{E} = -\frac{3\pi G M^2}{64a}
