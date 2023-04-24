@@ -10,7 +10,7 @@ parts:
     - url: https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf
       title: "Lecture 03: Numerical Integration Methods"
     - file: lectures/03_Numerical_Methods.ipynb
-    - file: assignments/assignment1/README.md
+    - file: assignments/assignment1/assignment1.md
   - caption: Week 2
     chapters:
     - url: https://jduarte.physics.ucsd.edu/phys141/lectures/04_Numerical_Methods_Continued.pdf
@@ -20,3 +20,9 @@ parts:
       title: "Lecture 05: N-Body Problem"
     - file: quizzes/quiz1.md
     - file: labs/lab2/Lab2_Numba.ipynb
+  - caption: Week 3
+    chapters:
+    - file: quizzes/quiz2.md
+  - caption: Week 4
+    chapters:
+    - file: assignments/assignment1/assignment2.md
