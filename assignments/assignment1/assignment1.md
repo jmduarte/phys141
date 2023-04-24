@@ -5,9 +5,9 @@ Instructor: Javier Duarte
 
 Spring 2023
 
-Due date for first version: _Thursday, April 20, 2023 5pm_
+Due date for first version: Friday, April 21, 2023 8pm_
 
-Due date for corrected version: _Tuesday, April 25, 2023 5pm_
+Due date for corrected version: Wednesday, April 26, 2023 8pm_
 
 Total points: 110 [141], 150 [241]
 
