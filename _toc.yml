@@ -20,9 +20,22 @@ parts:
       title: "Lecture 05: N-Body Problem"
     - file: quizzes/quiz1.md
     - file: labs/lab2/Lab2_Numba.ipynb
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/06_NBody_Continued.pdf
+      title: "Lecture 06: N-Body Problem (Continued)"
   - caption: Week 3
     chapters:
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/07_CBE.pdf
+      title: "Lecture 07: Collisionless Boltzmann Equation"
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/08_Jeans_Plummer.pdf
+      title: "Lecture 08: Jeans Therom and Plummer Model"
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/09_Plummer_MC.pdf
+      title: "Lecture 09: Plummer Model and Monte Carlo Methods"
     - file: quizzes/quiz2.md
   - caption: Week 4
     chapters:
-    - file: assignments/assignment1/assignment2.md
+    - url: https://jduarte.physics.ucsd.edu/phys141/lectures/10_Plummer_MC_Continued.pdf
+      title: "Lecture 10: Plummer Model and Monte Carlo Methods (Continued)"
+    - file: assignments/assignment2/assignment2.md
+  - caption: Week 5
+    chapters:
+    - file: midterm_final/midterm_final.md
