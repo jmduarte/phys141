@@ -19,7 +19,7 @@
 -   Local (Lab iMac)
 
     ```bash
-    todo
+    source /usr/local/physics/nemo_new/nemo/nemo_start.sh
     ```
 
 -   DSMLP
