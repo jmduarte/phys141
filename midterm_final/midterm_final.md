@@ -21,7 +21,7 @@ Midterm projects will be presented during Week 8.
 
 ### Final
 
-The final projects are the best full simulations of the teams using the bulge-disk-halo Dubinski model for their galaxy encounter projects.
+The final projects are the best full simulations using the disk-bulge-halo model of [Kuijken & Dubinski, 1995](kuijken-dubinski.pdf).
 
 (a) The galaxy can be created with `mkgalaxy` or `magalia` at your choice of resolution and initial disk/bulge/halo composition.
 
@@ -30,8 +30,8 @@ Team members should collaborate on the code, report, and presentation.
 
 (c) The gyrfalcON code runs the simulation.
 
-(d) The NEMO tools are available for help but not as substitution for the team simulations!
-The solution is the team initial setup with code, run with gyrfalcON, and visualization/interpretation.
+(d) The NEMO tools are available for help but not as substitution for the team's simulations.
+The solution is the team's initial condition setup with code, run with gyrfalcON, and visualization/interpretation.
 
 (e) The results are aimed to be comparable to the corresponding reference work from the literature.
 
@@ -143,7 +143,8 @@ For the elliptic orbits, use the appropriate parametrization:
 
 ![kep.png](kep.png)
 
-The origin of the CM coordinate system can be chosen to coincide with the Sun location of the figure. Two equal disks of radius $0.75R_{\min }$ experience an elliptic encounter, having begun flat and circular at the time $t=-16.4$ of the last apocenter.
+The origin of the CM coordinate system can be chosen to coincide with the Sun location of the figure.
+Two equal disks of radius $0.75R_{\min }$ experience an elliptic encounter, having begun flat and circular at the time $t=-16.4$ of the last apocenter.
 As viewed from either disk, the adopted node to peri angles $omega_A = \omega_B = -30^\circ$ with inclinations $i_A=60^\circ, i_B=60^\circ$.
 The angles are discussed in Fig. 6a,b (see also the [galaxy rotations note](fig4.pdf) and [collision orbit note](fig1.pdf)).
 The viewing time of the resulting composite object is $t=15$ in Fig. 23.
@@ -219,11 +220,11 @@ Cartwheel midterm examples:
 - [Cartwheel massless on-center](Uniform_Massless_Disk_On-Center_Collision.mpg)
 
 ### Final: Cartwheel
-In the spirit of realistic modeling of galaxy mergers, like the Mice, Antennae, and Milky Way mergers, study [Athanassoula et al., 1997](athana_cartwheel.pdf) to set up and reproduce their model of the Cartwheel using bulge-disk-halo galaxies.
+In the spirit of realistic modeling of galaxy mergers, like the Mice, Antennae, and Milky Way mergers, study [Athanassoula et al., 1997](athana_cartwheel.pdf) to set up and reproduce their model of the Cartwheel using disk-bulge-halo galaxies.
 
 (1) Use `mkgalaxy` or `magalie` to fabricate the initial galaxies. Choose your resolution for the project.
 
-(2) Run gyrfalcON to get close to the results of Athanassoula et al. as reported in their paper.
+(2) Run gyrfalcON to get close to the results of Athanassoula et al.
 
 (3) Animate and make mpeg movies of the project.
 
