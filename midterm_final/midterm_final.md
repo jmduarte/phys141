@@ -53,7 +53,7 @@ In the final project realistic Galaxies are crafted at the origin of the coordin
 
 ### Midterm: Mice Project
 
-Figure 22 on page 657 in Toomre & Toomre summarizes the initial setup of their most successive Mice encounter. Reproduce their result of Fig. 22 using 297 disk particles in each disk as described on page 20. 
+Figure 22 on page 657 in Toomre & Toomre summarizes the initial setup of their most successful Mice encounter. Reproduce their result of Fig. 22 using 297 disk particles in each disk as described on page 20. 
 They fill 11 concentric rings of radii $0.2$ to $0.7R_{\mathrm{min}}$ with a step size of $0.05R_{\mathrm{min}}$.
 Increase the filling of the rings by increments of three test particles starting with 12 particles on the innermost ring.
 The outermost ring contains 42 particles.
@@ -126,7 +126,8 @@ This collision and merger sequence (known as the Toomre sequence) for galaxy evo
 
 For convenience, Toomre & Toomre chose the time unit to be $10^8$ years, the pericenter distance $R_\mathrm{min}=25$ kpc and the heavier mass in each encounter, $10^{11} M_{\odot}$, chosen as the mass unit.
 The collision orbits (elliptic, or parabolic) are identified by choosing (1) $R_\mathrm{min}=r_{p}$ and (2) the initial separation $R_\mathrm{init}$, or the equivalent time $t_\mathrm{init}$, with $t=0$ chosen at pericenter. 
-Initial velocities are dependent on the masses of the galaxies. Disk orientations and other input parameters are determined from the reference material of the projects as requested in the project descriptions. 
+Initial velocities are dependent on the masses of the galaxies.
+Disk orientations and other input parameters are determined from the reference material of the projects as requested in the project descriptions. 
 For the midterm project Toomre & Toomre disk galaxy models are prepared with test particles to run the restricted 3-body integrator.
 In the final project realistic Galaxies are crafted at the origin of the coordinate system using  `mkgalaxy` or `magalie` to generate disk-bulge-halo galaxies.
 
@@ -134,18 +135,19 @@ In the final project realistic Galaxies are crafted at the origin of the coordin
 
 Figure 23 on page 37 in Toomre & Toomre summarizes the initial setup of their symmetric Antennae encounter.
 Reproduce their result of Fig. 23 using 345 disk particles in each disk as described on page 20.
-They fill 12 concentric rings of radii from 0.2 to $0.75R_\mathrm{min}$ in steps of $0.05R_\mathrm{min}$.
+They fill 12 concentric rings of radii from $0.2R_\mathrm{min}$ to $0.75R_\mathrm{min}$ in steps of $0.05R_\mathrm{min}$.
 Increase the filling of the rings by increments of three test particles added to the next ring and starting with 12 particles on the innermost ring.
 The outermost ring has 45 particles.
 Run your restricted 3-body code where the test particles are tracking the two elliptic orbits of the core galaxies with $e=0.5$.
-The test particles are interacting with the cores only and the interaction is softened by $\varpsilon=0.2R_\mathrm{min}$ at the closest range to mimic the distributed mass of the real object. Work in the center-of-mass coordinate system where the relative coordinate vector $\vec{r}$ traces the elliptic Kepler orbit.
+The test particles are interacting with the cores only and the interaction is softened by $\varepsilon=0.2R_\mathrm{min}$ at the closest range to mimic the distributed mass of the real object.
+Work in the center-of-mass coordinate system where the relative coordinate vector $\vec{r}$ traces the elliptic Kepler orbit.
 For the elliptic orbits, use the appropriate parametrization:
 
 ![kep.png](kep.png)
 
 The origin of the CM coordinate system can be chosen to coincide with the Sun location of the figure.
-Two equal disks of radius $0.75R_{\min }$ experience an elliptic encounter, having begun flat and circular at the time $t=-16.4$ of the last apocenter.
-As viewed from either disk, the adopted node to peri angles $omega_A = \omega_B = -30^\circ$ with inclinations $i_A=60^\circ, i_B=60^\circ$.
+Two equal disks of radius $0.75R_{\min}$ experience an elliptic encounter, having begun flat and circular at the time $t=-16.4$ of the last apocenter.
+As viewed from either disk, the adopted node to peri angles $\omega_A = \omega_B = -30^\circ$ with inclinations $i_A=60^\circ, i_B=60^\circ$.
 The angles are discussed in Fig. 6a,b (see also the [galaxy rotations note](fig4.pdf) and [collision orbit note](fig1.pdf)).
 The viewing time of the resulting composite object is $t=15$ in Fig. 23.
 
@@ -170,8 +172,8 @@ Galaxy A and galaxy B do not overlap initially, and the center of masses of the 
 
 ![final__19.png](final__19.png)
 
-First, we would like to set up the appropriate initial condition for the collision as depicted in the figure above, but the parbolic orbits replaced by elliptic ones.
-Notes on the setup for parbolic orbits are given in the [collision orbit note](fig1.pdf) and have to be replaced by the [properties of elliptic orbits](Antenna_orbit.pdf).
+First, we would like to set up the appropriate initial condition for the collision as depicted in the figure above, but the parabolic orbits replaced by elliptic ones.
+Notes on the setup for parabolic orbits are given in the [collision orbit note](fig1.pdf) and have to be replaced by the [properties of elliptic orbits](Antenna_orbit.pdf).
 Notes on the disk angles are given in the [galaxy rotations note](fig4.pdf).
 Barnes chose in the paper the length unit to be 40 kpc, and the mass unit as $2.2\times 10^{11}M_{\odot}$.
 One time unit is 250 Myr.
