@@ -1,0 +1,365 @@
+#! /bin/csh -f
+#
+#  History:     29-mar-2004   for NEMO V3.2
+#                4-may-2004   various new keywords and cfitsio optional install
+#               30-jul-2004   optional cfitsio install
+#               11-jul-2005   various additional packages for NEMO V3.2.3
+#                5-mar-2006   also create nemo_start.sh
+#               20-aug-2006   falcON install 
+#               21-jan-2008   optional nemo= where the root is located
+#               19-may-2010   gfortran now the default (but 4.1 or below no pgplot/GIF)
+#               24-may-2010   glnemo deprecated, only glnemo2 
+#               19-jan-2011   added a cmake=1 option to build internally
+#               25-jan-2012   DSO linking (dso=1) needed for modern linux (DSO = Dynamic Shared Objects)
+#                5-dec-2017   converted CVS to GIT for NEMO V4
+#               29-dec-2017   install=0 mktar=0 option
+#                7-feb-2018   script now called install_nemo
+#                4-may-2018   option to use giza (https://github.com/danieljprice/giza) instead of pgplot
+#                8-aug-2018   add ubuntu option (Jason Lammers) if you start from a virgin ubuntu
+#               22-feb-2019   add brew=1 option to use pgplot from Homebrew (our pgplot also works)
+#                7-may-2019   add centos=1 option to get a redhat flavor
+#               11-dec-2019   add python= option
+#               27-dec-2019   add native= and openmp=  - getting this ready for NEMO V4.2 
+#                9-jan-2019   new style mknemo installs
+#
+#
+#  Example of usage if you do git development to test your other git release before you've pushed this one:
+#  great if you don't have an internet connection
+#  
+#       install_nemo git_nemo=`pwd`/nemo git_pgplot=`pwd`/nemo/local/pgplot    nemo=nemo2
+
+
+set nemo        = nemo           # root directory name from the current directory
+
+set ubuntu	= 0             # runs "sudo apt" on a few required packages
+set centos      = 0             # runs "sudo yum" on a few required packages
+set install     = 1             # set this to 0 when you only grab the source code
+set mktar       = 0             # make a tar file before install starts
+set pgplot      = 1		# install PGPLOT via GIT also (there are other options)
+set giza        = 0             # install GIZA instead of PGPLOT
+set brew        = 0             # (MacOSX only) assuming homebrew has everything we need
+set intel       = 0		# pick intel compiler (astromake)
+set gfortran    = 1             # pick gfortran compiler (otherwise g77 is the default)
+set gcc         = 0		# pick gcc version (version number via astromake)
+set clang       = 0             # use LLVM clang instead
+set vogl        = 0		# compile vogl
+set glnemo      = 1             # compile glnemo2
+set unsio       = 0             # compile unsio and uns_project
+set falcon      = 1             # Dehnen's falcon environment
+set gsl         = 0             # add GSL library
+set hdf         = 1             # use HDF library (not used)
+set png         = 0             # add png for our internal pgplot
+set gif         = 1             # add gi/pp/wd drivers (they use %ref/%val) for pgplot - not for gfortran <= 41
+set single      = 0             # singe or double (default) precision
+set all         = 1		# make all binaries , or just the one for the testsuite?
+set clean       = 1		# remove old nemo directory before installing (rm -r nemo)
+set git_nemo    = https://github.com/teuben/nemo
+set git_pgplot  = https://github.com/teuben/pgplot
+set git_giza    = https://github.com/teuben/giza
+set git_giza    = https://github.com/danieljprice/giza
+set branch      = ()		# use a GIT branch?
+set yapp        = (/null)	# set a YAPP device during the install
+set cfitsio     = 0             # disable for formal release since there are some problems
+set debug       = 0             # compile in debug mode 
+set test        = 1             # also run testsuite at the end
+set bench       = 1             # also run bench at the end
+set pedantic    = 0             # compile in pedantic mode
+set native      = 0             # compile in -match=native mode
+set openmp      = 0             # compile with -fopenmp
+set make        = make          # make, gmake, pmake, bmake, ....
+set cmake       = 0             # 1= build internally
+set python      = 0             # 1 means also install an anaconda in $NEMO (only for linux)
+
+set unames      = `uname -s`    # supported are: Darwin, Linux
+
+# dso:                          # use DSO linking trick for new linux gcc.  4.6.3 on ubuntu needed it
+if ($unames == Linux) then
+  set dso=1
+else
+  set dso=0
+endif
+
+
+# some variables that affect variables set before
+
+set reuse=0             # don't clean and use GIT, just reuse the current nemo tree
+set quick=0             # install with minimal extra packages
+
+foreach _a ($*)
+  set $_a
+end
+
+#   if reusing current tree, make sure we're not removing the directory
+if ($reuse) then
+  set clean=0
+endif
+  
+if ($?NEMO) then
+  echo Cannot install with this script if NEMO=$NEMO is present already, this is not recommended
+  exit 1
+endif
+
+if ($ubuntu) then
+   sudo apt update
+   sudo apt install time
+   sudo apt install build-essential -y
+   sudo apt install gcc -y
+   sudo apt install g++ -y
+   sudo apt install gfortran -y
+   # clang ???
+   sudo apt install xorg-dev -y
+   # xorg took care of the next 3
+   #sudo apt install libx11-dev -y
+   #sudo apt install libxt-dev -y
+   #sudo apt install libxext-dev -y
+   #sudo apt install libcairo2-dev -y
+   sudo apt install cmake -y
+   sudo apt install pgplot5 -y
+   sudo apt install wcslib-dev -y
+   sudo apt install libhdf4-dev libhdf5-dev hdf5-tools -y
+   sudo apt install libnetcdf-dev netcdf-bin -y
+   sudo apt install libgsl-dev -y
+   sudo apt install libfftw3-dev -y
+   sudo apt install libcfitsio-dev -y
+   # for hdf4
+   sudo apt install flex bison libjpeg-dev -y
+   # useful for some bare tools
+
+   sudo apt install autoconf -y
+endif
+
+if ($brew) then
+   if ($unames == Darwin) then
+      brew install coreutils cfitsio cmake autoconf hdf5 netcdf pgplot wcslib wget
+   endif
+endif
+
+
+# Recipes for installing PGPLOT
+# 1. download proper http://download1.rpmfusion.org/nonfree/el/updates/testing/8/x86_64/
+# 2. rpm -Uvh rpmfusion-nonfree-release*rpm
+# 3. dnf install pgplot
+# Or google for "centos 8 pgplot" and download the RPM's
+#
+# Centos8:
+# sudo dnf install git gcc-gfortran make tcsh gcc-c++ cmake libXext-devel
+#             libtirpc-devel
+# sudo yum groupinstall 'Development Tools'
+
+# FEDORA31
+# sudo yum install gfortran g++ csh make libXext-devel
+# the .so file was missing, it needed a symlink to the .so.5 file in order for linking to work
+# missing <rpc/rpc.h>            libtirpc-devel didn't work
+#
+# Mageia uses dnf
+#     lib64xext-devel cmake gcc-++ gcc-gfortran git tcsh 
+#     no pgplot???   hdf4 ???
+
+if ($centos) then
+   sudo yum groupinstall 'Development Tools'
+   sudo yum install -y cmake
+   sudo yum install -y libXext-devel
+   sudo yum install curl file git tcsh
+endif
+
+if ($?CC  == 0)  setenv CC  gcc
+if ($?CXX == 0)  setenv CXX g++
+if ($?F77 == 0)  setenv F77 g77
+
+#       if modules are used, should start from a clean slate
+if ($?MODULE_VERSION) then
+  echo WARNING: MODULE_VERSION=$MODULE_VERSION
+  module purge
+endif
+
+#	pick intel compiler (ifort means >= 8.0)
+if ($intel) then
+  # source /astromake/astromake_start.csh
+  # astroload intel
+  setenv CC  icc
+  setenv CXX icpc
+  setenv F77 ifort
+endif
+
+if ($gfortran) then
+  setenv CC  gcc
+  setenv CXX g++
+  setenv F77 gfortran
+endif
+
+if ($clang) then
+  setenv CC  clang
+  setenv CXX clang
+  setenv F77 gfortran
+endif
+
+
+if ($clean) then
+  if (-e $nemo) then
+    echo Cleaning old nemo=$nemo directory, sleep 5 seconds first
+    sleep 5
+    rm -rf $nemo
+  endif
+endif
+
+#		pick a certain GIT release, if requested
+#		then get the source
+if ($reuse == 0) then
+  git clone $git_nemo $nemo
+endif
+
+cd $nemo  
+
+if ($#branch) then
+  echo git: Using branch $branch
+  git checkout $branch
+endif
+
+mkdir -p local
+
+if ($reuse) then
+  echo DISTCLEAN
+  $make distclean >& install.distclean.log
+endif
+
+# pick just one from pgplot,giza   brew is special for mac, ubuntu now also uses it's own pgplot
+if ($giza)   set pgplot = 0
+if ($pgplot) set giza   = 0
+if ($brew)   set pgplot = 0
+if ($ubuntu) set pgplot = 0
+
+if ($pgplot && $reuse == 0) then   
+  (cd local; git clone $git_pgplot)
+endif
+
+if ($giza && $reuse == 0) then   
+  (cd local; git clone $git_giza)
+endif
+
+if ($cfitsio != 0) then
+ src/scripts/mknemo.d/cfitsio >& install.cfitsio.log
+ echo cfitsio installed with STATUS=$status
+ set cfitsio=1
+endif
+
+
+# here? or before cfitsio? or move cfitsio down?
+if ($mktar == 1) then
+  (cd ..; tar zcf $nemo.tar.gz $nemo)
+  echo $nemo.tar.gz created
+endif
+
+if ($install == 0) exit 0
+
+
+set copts=()
+# set copts=($copts --disable-gsl)
+if ($gsl)      set copts=($copts --enable-gsl)
+if ($png)      set copts=($copts --enable-png)
+if ($cfitsio)  set copts=($copts --enable-cfitsio --with-cfitsio-prefix=`pwd`)
+if ($single)   set copts=($copts --enable-single)
+if ($debug)    set copts=($copts --enable-debug)
+if ($native)   set copts=($copts --enable-native)
+if ($openmp)   set copts=($copts --with-openmp)
+if ($pedantic) set copts=($copts --enable-pedantic)
+if ($dso == 0) set copts=($copts --without-dso)
+if ($pgplot)   set copts=($copts --with-yapp=pgplot --with-pgplot-prefix=`pwd`/lib)
+if ($ubuntu)   set copts=($copts --with-yapp=pgplot --with-pgplot-prefix=/usr/lib)
+if ($giza)     set copts=($copts --with-yapp=giza --with-pgplot-prefix=`pwd`/lib)
+if ($brew) then
+  if ($unames == Darwin) then
+    set copts=($copts --with-yapp=pgplot --with-pgplot-prefix=/usr/local/lib)
+  else
+    set copts=($copts --with-yapp=pgplot --with-pgplot-prefix=/usr/lib)
+  endif
+endif   
+
+
+echo Running configure $copts
+echo configure $copts  >& install.config.log
+./configure  $copts   >>& install.config.log
+echo nemo_start
+source nemo_start.csh
+echo build1
+$make build1
+rehash
+
+
+if ($#yapp > 0) setenv YAPP $yapp
+
+if ($pgplot) then
+  echo "Compiling internal pgplot (logfile: install.pgplot.log)"
+  $make pgplot PNG=$png GIF=$gif >& install.pgplot.log
+  if ($status) echo "### Error: pgplot build problem."
+endif
+
+if ($giza) then
+  echo "Compiling internal pgplot from giza (logfile: install.giza.log)"
+  pushd $NEMO/local/giza
+  ./configure --prefix=$NEMO >& install.giza.log
+  if ($status) echo "### Error: giza build problem."  
+  make                      >>& install.giza.log
+  if ($status) echo "### Error: giza build problem."  
+  make install              >>& install.giza.log
+  if ($status) echo "### Error: giza build problem."
+  popd
+endif
+
+if ($cmake) then
+  echo "Compiling internal cmake (logfile: install.cmake.log)"
+  src/scripts/cmake.install >& install.cmake.log
+  if ($status) echo "### Error: cmake build problem."
+endif
+
+rehash
+if ($falcon) then
+  $make libs
+else
+  $make corelibs
+endif
+
+if ($vogl) then
+  echo "Compiling vogl for xyzview (logfile: install.vogl.log)"
+  $make vogl >& install.vogl.log
+  if ($status) echo "### Error: vogl build problem."
+endif
+
+if ($glnemo) then
+  echo "Compiling glnemo2 (logfile: install.glnemo2.log)"
+  mknemo glnemo2 >& install.glnemo2.log
+  if ($status) echo "### Error: glnemo2 build problem".
+endif
+
+if ($unsio) then
+  echo "Compiling unsio and uns_project (logfile: install.unsio.log)"
+  mknemo unsio >& install.unsio.log
+  if ($status) echo "### Error: unsio build problem".  
+  mknemo uns_project >>& install.unsio.log
+  if ($status) echo "### Error: uns_project build problem".  
+endif
+
+if ($python) then
+  echo "Installing anaconda - only works for linux"
+  src/scripts/install_anaconda3 
+endif
+
+rehash
+
+if ($test) then
+  if ($all) then
+    $make bins
+    src/scripts/testsuite
+  else
+    src/scripts/testsuite -b
+  endif
+endif  
+
+if ($bench) then
+  time src/scripts/nemo.bench
+endif  
+
+echo All done.
+echo ""
+echo "(ba)sh users:  source $nemo/nemo_start.sh  to activate NEMO in your shell"
+echo "(t)csh users:  source $nemo/nemo_start.csh to activate NEMO in your shell"
+

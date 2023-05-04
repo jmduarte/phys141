@@ -1,3 +1,5 @@
 *
 !Dockerfile
 !run_jupyter.sh
+!install_nemo
+!download_glnemo2.sh
