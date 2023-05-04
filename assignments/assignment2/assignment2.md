@@ -47,6 +47,8 @@ Use a histogram for the distribution.
 
 (c) [20 points] Calculate the histogram of the energy $E=\frac{1}{2}v^2+\Phi(r)$ distribution of the phase space points and compare it with the analytic expression $f \propto (-E)^{7/2}$.
 
+*Edit*: Why don't they match up? Consider the density of $(x, y, z, v_x, v_y, v_z)$ phase space states for a given $E$.
+
 (d) [241 only, 20 points] Show evidence that your velocity distribution agrees with the expected theoretical distribution at some value of $r$.
 
 *Hint*: Consider points in thin spherical shell around radius $r$.
