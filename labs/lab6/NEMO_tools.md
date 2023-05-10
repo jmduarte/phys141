@@ -3,20 +3,20 @@
 ## binary <-> ascii conversions
 
 ```bash
-An example of converting between text and snapshot formats
-First, activate NEMO by sourcing the NEMO init script (depending on the machine)
-Second, create an example snapshot
+# An example of converting between text and snapshot formats
+# First, activate NEMO by sourcing the NEMO init script (depending on the machine)
+# Second, create an example snapshot
 magalie gal.ic ndisk=10000 nbulge=0 nhalo=10000
-Run gyrfalcON for a while to get a multi-snapshot file
+# Run gyrfalcON for a while to get a multi-snapshot file
 gyrfalcON gal.ic gal.out tstop=5 step=0.1 kmax=3 eps=0.03
-Convert the snapshots into text format
+# Convert the snapshots into text format
 snapprint in=gal.ic options=m,x,y,z,vx,vy,vz header=t > gal.ic.tab
 snapprint in=gal.out options=m,x,y,z,vx,vy,vz header=t > gal.out.tab
-Check for the format in the results. You want to make your own output into this format so that it can be converted into snapshots and be opened in glnemo2
-Convert the text back into snapshots
+# Check for the format in the results. You want to make your own output into this format so that it can be converted into snapshots and be opened in glnemo2
+# Convert the text back into snapshots
 tabtos in=gal.ic.tab out=gal.ic.tab.snp header=nbody,time block1=mass,pos,vel
 tabtos in=gal.out.tab out=gal.out.tab.snp header=nbody,time block1=mass,pos,vel
-Finally, check with glnemo2 that the convertion works.
+# Finally, check with glnemo2 that the convertion works.
 ```
 
 ```bash
@@ -50,5 +50,3 @@ gyrfalcON col.ic col.out tstop=50 step=0.1 kmax=6 eps=0.03
 # View the result:
 glnemo2 col.out 0:9999,20000:29999
 ```
-
-##
