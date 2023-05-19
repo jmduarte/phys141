@@ -39,14 +39,14 @@ For creating the initial conditions you may use your code from Assignment 2 or `
 (a) [30 points] Using your setup for the initial state of the Plummer sphere from Assignment 2 (or `mkplummer`), run
 an $N$-body simulation over some time unit with 10,000 points.
 
-Plot the total energy of the Plummer sphere versus time.
+Plot the kinetic, potential, and total energy of the Plummer sphere versus time.
 Is it conserved?
 
 (b) [30 points] Run the $N$-body simulation for a modified Plummer distribution where you set initially all velocities to zero. 
 
-In your chosen time units, how long does it take to collapse?
+In your chosen time units, how long does it take to collapse and reacha  new steady state?
 
-Plot the total energy versus time.
+Plot the kinetic, potential, and total energy versus time.
 
 (c) [20 points] Make two separate movies over the same time period of the two simulations with (a) the steady state Plummer sphere and (b) the collapsing sphere Plummer.
 Make the time period long enough that you can see the collapse.
