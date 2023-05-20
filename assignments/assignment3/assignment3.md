@@ -5,11 +5,11 @@ Instructor: Javier Duarte
 
 Spring 2023
 
-Due date for first version: May 26, 8pm_
+_Due date for first version: May 26, 8pm_
 
-Due date for corrected version: May 31, 8pm_
+_Due date for corrected version: May 31, 8pm_
 
-Total points: ???
+Total points: 80
 
 ## Policies
 You are free to collaborate on all the problems, subject to the collaboration policy stated in the syllabus.
@@ -44,7 +44,7 @@ Is it conserved?
 
 (b) [30 points] Run the $N$-body simulation for a modified Plummer distribution where you set initially all velocities to zero. 
 
-In your chosen time units, how long does it take to collapse and reacha  new steady state?
+In your chosen time units, how long does it take to collapse and reach a new steady state?
 
 Plot the kinetic, potential, and total energy versus time.
 
