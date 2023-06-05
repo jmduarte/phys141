@@ -1,0 +1,891 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lecture 03: Numerical Integration Methods &#8212; UCSD PHYS 141/241</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/03_Numerical_Methods';</script>
+    <link rel="canonical" href="https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Assignment 1" href="../assignments/assignment1/assignment1.html" />
+    <link rel="prev" title="UCSD PHYS 141/241: Computational Physics I" href="../README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/Mice.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/Mice.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    UCSD PHYS 141/241: Computational Physics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 1</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/01_Introduction.pdf">Lecture 01: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf">Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/assignment1/assignment1.html">Assignment 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/04_Numerical_Methods_Continued.pdf">Lecture 04: Numerical Integration Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/lab1/Lab1.html">Lab 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/05_NBody.pdf">Lecture 05: N-Body Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quizzes/quiz1.html">Quiz 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/lab2/Lab2_Numba.html">Lab 2: Numba</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/06_NBody_Continued.pdf">Lecture 06: N-Body Problem (Continued)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/07_CBE.pdf">Lecture 07: Collisionless Boltzmann Equation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/08_Jeans_Plummer.pdf">Lecture 08: Jeans Therom and Plummer Model</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/09_Plummer_MC.pdf">Lecture 09: Plummer Model and Monte Carlo Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quizzes/quiz2.html">Quiz 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/10_Plummer_MC_Continued.pdf">Lecture 10: Plummer Model and Monte Carlo Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/assignment2/assignment2.html">Assignment 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../midterm_final/midterm_final.html">Midterm and Final Projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/jmduarte/phys141/main?urlpath=tree/lectures/03_Numerical_Methods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://datahub.ucsd.edu/hub/user-redirect/git-pull?repo=https%3A//github.com/jmduarte/phys141&urlpath=tree/phys141/lectures/03_Numerical_Methods.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/jmduarte/phys141/blob/main/lectures/03_Numerical_Methods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141/issues/new?title=Issue%20on%20page%20%2Flectures/03_Numerical_Methods.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/03_Numerical_Methods.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 03: Numerical Integration Methods</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-method">Euler Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midpoint-method">Midpoint method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictor-corrector-methods">Predictor-Corrector Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-kutta-methods">Runge-Kutta Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-order-runge-kutta-method">Second-order Runge-Kutta method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourth-order-runge-kutta-method">Fourth-order Runge-Kutta method</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-03-numerical-integration-methods">
+<h1>Lecture 03: Numerical Integration Methods<a class="headerlink" href="#lecture-03-numerical-integration-methods" title="Permalink to this heading">#</a></h1>
+<p>Credit: <a class="reference external" href="https://pythonnumericalmethods.berkeley.edu/notebooks/Index.html">https://pythonnumericalmethods.berkeley.edu/notebooks/Index.html</a></p>
+<section id="euler-method">
+<h2>Euler Method<a class="headerlink" href="#euler-method" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\frac{dS(t)}{dt} = F(t,S(t))\)</span> be an explicitly defined first order ODE.
+That is, <span class="math notranslate nohighlight">\(F\)</span> is a function that returns the derivative, or change, of a state given a time and state value.
+Also, let <span class="math notranslate nohighlight">\(t\)</span> be a numerical grid of the interval <span class="math notranslate nohighlight">\([t_0, t_f]\)</span> with spacing <span class="math notranslate nohighlight">\(h\)</span>.
+Without loss of generality, we assume that <span class="math notranslate nohighlight">\(t_0 = 0\)</span>, and that <span class="math notranslate nohighlight">\(t_f = Nh\)</span> for some positive integer, <span class="math notranslate nohighlight">\(N\)</span>.</p>
+<p>The linear approximation of <span class="math notranslate nohighlight">\(S(t)\)</span> around <span class="math notranslate nohighlight">\(t_j\)</span> at <span class="math notranslate nohighlight">\(t_{j+1}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+S(t_{j+1}) = S(t_j) + (t_{j+1} - t_j)\frac{dS(t_j)}{dt},
+\]</div>
+<p>which can also be written</p>
+<div class="math notranslate nohighlight">
+\[
+S(t_{j+1}) = S(t_j) + hF(t_j, S(t_j)).
+\]</div>
+<p>This formula is called the <strong>Explicit Euler Formula</strong>, and it allows us to compute an approximation for the state at <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span> given the state at <span class="math notranslate nohighlight">\(S(t_j)\)</span>. Starting from a given initial value of <span class="math notranslate nohighlight">\(S_0 = S(t_0)\)</span>, we can use this formula to integrate the states up to <span class="math notranslate nohighlight">\(S(t_f)\)</span>; these <span class="math notranslate nohighlight">\(S(t)\)</span> values are then an approximation for the solution of the differential equation.
+The explicit Euler formula is the simplest and most intuitive method for solving initial value problems.
+At any state <span class="math notranslate nohighlight">\((t_j, S(t_j))\)</span> it uses <span class="math notranslate nohighlight">\(F\)</span> at that state to “point” toward the next state and then moves in that direction a distance of <span class="math notranslate nohighlight">\(h\)</span>.
+Although there are more sophisticated and accurate methods for solving these problems, they all have the same fundamental structure.
+As such, we enumerate explicitly the steps for solving an initial value problem using the Explicit Euler formula.</p>
+<img src="images/Euler-method-illustration.png" alt="explicit Euler" title="The illustration of the explicit Euler method." width="400"/><p><strong>WHAT IS HAPPENING?</strong> Assume we are given a function <span class="math notranslate nohighlight">\(F(t, S(t))\)</span> that computes <span class="math notranslate nohighlight">\(\frac{dS(t)}{dt}\)</span>, a numerical grid, <span class="math notranslate nohighlight">\(t\)</span>, of the interval, <span class="math notranslate nohighlight">\([t_0, t_f]\)</span>, and an initial state value <span class="math notranslate nohighlight">\(S_0 = S(t_0)\)</span>. We can compute <span class="math notranslate nohighlight">\(S(t_j)\)</span> for every <span class="math notranslate nohighlight">\(t_j\)</span> in <span class="math notranslate nohighlight">\(t\)</span> using the following steps.</p>
+<ol class="arabic simple">
+<li><p>Store <span class="math notranslate nohighlight">\(S_0 = S(t_0)\)</span> in an array, <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(S(t_1) = S_0 + hF(t_0, S_0)\)</span>.</p></li>
+<li><p>Store <span class="math notranslate nohighlight">\(S_1 = S(t_1)\)</span> in <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(S(t_2) = S_1 + hF(t_1, S_1)\)</span>.</p></li>
+<li><p>Store <span class="math notranslate nohighlight">\(S_2 = S(t_1)\)</span> in <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cdots\)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(S(t_f) = S_{f-1} + hF(t_{f-1}, S_{f-1})\)</span>.</p></li>
+<li><p>Store <span class="math notranslate nohighlight">\(S_f = S(t_f)\)</span> in <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(S\)</span> is an approximation of the solution to the initial value problem.</p></li>
+</ol>
+<p>When using a method with this structure, we say the method <strong>integrates</strong> the solution of the ODE.</p>
+<p><em>Example</em>: The differential equation <span class="math notranslate nohighlight">\(\frac{df(t)}{dt} = e^{-t}\)</span> with initial condition <span class="math notranslate nohighlight">\(f_0 = -1\)</span> has the exact solution <span class="math notranslate nohighlight">\(f(t) = -e^{-t}\)</span>.
+Approximate the solution to this initial value problem between 0 and 1 in increments of 0.1 using the explicit Euler Formula.
+Plot the difference between the approximated solution and the exact solution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-poster&#39;</span><span class="p">)</span>
+<span class="c1"># Define parameters</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="mi">7</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="c1"># ODE</span>
+<span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="c1"># Exact solution</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1"># Step size</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="c1"># Numerical grid</span>
+<span class="n">s0</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># Initial condition</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_4501/3962005646.py:6: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&#39;seaborn-poster&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explicit Euler method</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">s_imp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s0</span>
+<span class="n">s_imp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s0</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">s_imp</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;bo--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Explicit Euler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Exact&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$S(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;explicit_euler.pdf&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/20b4c3ab9c82c0aedd8273b0aafc3f566ca834ad3a16b73f6cb5fa85bfb9d85e.png" src="../_images/20b4c3ab9c82c0aedd8273b0aafc3f566ca834ad3a16b73f6cb5fa85bfb9d85e.png" />
+</div>
+</div>
+<p>The explicit Euler Formula is called “explicit” because it only requires information at <span class="math notranslate nohighlight">\(t_j\)</span> to compute the state at <span class="math notranslate nohighlight">\(t_{j+1}\)</span>.
+That is, <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span> can be written explicitly in terms of values we have (i.e., <span class="math notranslate nohighlight">\(t_j\)</span> and <span class="math notranslate nohighlight">\(S(t_j)\)</span>).
+The <strong>implicit Euler formula</strong> can be derived by taking the linear approximation of <span class="math notranslate nohighlight">\(S(t)\)</span> around <span class="math notranslate nohighlight">\(t_{j+1}\)</span> and computing it at <span class="math notranslate nohighlight">\(t_j\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+S(t_{j+1}) = S(t_j) + hF(t_{j+1}, S(t_{j+1})).
+\]</div>
+<p>This formula is peculiar because it requires that we know <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span> to compute <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span>!
+However, it happens that sometimes we <em>can</em> use this formula to approximate the solution to initial value problems.</p>
+</section>
+<section id="midpoint-method">
+<h2>Midpoint method<a class="headerlink" href="#midpoint-method" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explicit Midpoint method</span>
+<span class="n">s_mid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">s_mid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">s_mid</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_mid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">s_mid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s_mid</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;bo--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Explicit Euler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Exact&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s_mid</span><span class="p">,</span> <span class="s1">&#39;ro-.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Midpoint&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$S(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;explicit_euler_midpoint.pdf&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c5348d1b1f94158214cb18b06785ba9a2dd6d3f1e069048ddac33177406cf265.png" src="../_images/c5348d1b1f94158214cb18b06785ba9a2dd6d3f1e069048ddac33177406cf265.png" />
+</div>
+</div>
+</section>
+<section id="predictor-corrector-methods">
+<h2>Predictor-Corrector Methods<a class="headerlink" href="#predictor-corrector-methods" title="Permalink to this heading">#</a></h2>
+<p>Given any time and state value, the function, <span class="math notranslate nohighlight">\(F(t, S(t))\)</span>, returns the change of state <span class="math notranslate nohighlight">\(\frac{dS(t)}{dt}\)</span>.
+<strong>Predictor-corrector</strong> methods of solving initial value problems improve the approximation accuracy by querying the <span class="math notranslate nohighlight">\(F\)</span> function several times at different locations (predictions), and then using a weighted average of the results (corrections) to update the state.
+Essentially, it uses two formulas: the <strong>predictor</strong> and <strong>corrector</strong>. The predictor is an explicit formula and first estimates the solution at <span class="math notranslate nohighlight">\(t_{j+1}\)</span>, i.e. we can use Euler method or some other methods to finish this step.
+After we obtain the solution <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span>, we can apply the corrector to improve the accuracy.
+Using the found <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span> on the right-hand side of an otherwise implicit formula, the corrector can calculate a new, more accurate solution.</p>
+<p>The <strong>midpoint method</strong> has a predictor step:</p>
+<div class="math notranslate nohighlight">
+\[
+S\left(t_{j} + \frac{h}{2}\right) = S(t_j) + \frac{h}{2}F(t_j, S(t_j)),
+\]</div>
+<p>which is the prediction of the solution value halfway between <span class="math notranslate nohighlight">\(t_j\)</span> and <span class="math notranslate nohighlight">\(t_{j+1}\)</span>.</p>
+<p>It then computes the corrector step:</p>
+<div class="math notranslate nohighlight">
+\[
+S(t_{j+1}) = S(t_j) + hF\left(t_j + \frac{h}{2}, S\left(t_{j} +
+\frac{h}{2}\right)\right)
+\]</div>
+<p>which computes the solution at <span class="math notranslate nohighlight">\(S(t_{j+1})\)</span> from <span class="math notranslate nohighlight">\(S(t_j)\)</span> but using the derivative from <span class="math notranslate nohighlight">\(S\left(t_{j} + \frac{h}{2}\right)\)</span>.</p>
+</section>
+<section id="runge-kutta-methods">
+<h2>Runge-Kutta Methods<a class="headerlink" href="#runge-kutta-methods" title="Permalink to this heading">#</a></h2>
+<p><strong>Runge Kutta</strong> (RK) methods are one of the most widely used methods for solving ODEs.
+Recall that the Euler method uses the first two terms in Taylor series to approximate the numerical integration, which is linear: <span class="math notranslate nohighlight">\(S(t_{j+1}) = S(t_j + h) = S(t_j) + h \cdot S'(t_j)\)</span>.</p>
+<p>We can greatly improve the accuracy of numerical integration if we keep more terms of the series in</p>
+<div class="math notranslate nohighlight">
+\[S(t_{j+1}) = S(t_j + h) = S(t_j) + S'(t_j)h + \frac{1}{2!}S''(t_j)h^2 + \cdots + \frac{1}{n!}S^{(n)}(t_j)h^n\]</div>
+<p>In order to get this more accurate solution, we need to derive the expressions of <span class="math notranslate nohighlight">\(S''(t_j), S'''(t_j), \cdots, S^{(n)}(t_j)\)</span>.
+This extra work can be avoided using the RK methods, which is based on truncated Taylor series, but not require computation of these higher derivatives.</p>
+<section id="second-order-runge-kutta-method">
+<h3>Second-order Runge-Kutta method<a class="headerlink" href="#second-order-runge-kutta-method" title="Permalink to this heading">#</a></h3>
+<p>Let us first derive the second-order RK method.
+Let <span class="math notranslate nohighlight">\(\frac{dS(t)}{dt} = F(t,S(t))\)</span>, then we can assume an integration formula the form of</p>
+<div class="math notranslate nohighlight">
+\[ S(t + h) = S(t) + c_1F(t, S(t))h + c_2F[t+ph, S(t)+qhF(t, S(t))]h \]</div>
+<p>We can attempt to find these parameters <span class="math notranslate nohighlight">\(c_1, c_2, p, q\)</span> by matching the above equation to the second-order Taylor series, which gives us</p>
+<div class="math notranslate nohighlight">
+\[ S(t + h) =  S(t) + S'(t)h + \frac{1}{2!}S''(t)h^2 = S(t) + F(t, S(t))h + \frac{1}{2!}F'(t, S(t))h^2 \]</div>
+<p>Noting that</p>
+<div class="math notranslate nohighlight">
+\[ F'(t, s(t)) = \frac{\partial F}{\partial t} + \frac{\partial F}{\partial S}\frac{\partial S}{\partial t} = \frac{\partial F}{\partial t} + \frac{\partial F}{\partial S}F \]</div>
+<p>Therefore, this equation can be written as:</p>
+<div class="math notranslate nohighlight">
+\[ S(t + h) = S + Fh + \frac{1}{2!}\Big(\frac{\partial F}{\partial t} + \frac{\partial F}{\partial S}F\Big)h^2 \]</div>
+<p>We can also rewrite the last term by applying Taylor series in several variables, which gives us:</p>
+<div class="math notranslate nohighlight">
+\[F[t+ph, S+qhF] = F + \frac{\partial F}{\partial t}ph + qh\frac{\partial F}{\partial S}F\]</div>
+<p>thus the equation becomes:</p>
+<div class="math notranslate nohighlight">
+\[ S(t + h) = S + (c_1+c_2)Fh + c_1\Big[ \frac{\partial F}{\partial t}p + q\frac{\partial F}{\partial S}F \Big]h^2 \]</div>
+<p>Comparing equations, we can easily obtain:</p>
+<div class="math notranslate nohighlight">
+\[c_1 + c_2 = 1, \space c_2p=\frac{1}{2}, \space c_2q=\frac{1}{2} \]</div>
+<p>Because the equation has four unknowns and only three equations, we can assign any value to one of the parameters and get the rest of the parameters.
+One popular choice is:</p>
+<div class="math notranslate nohighlight">
+\[c_1 =\frac{1}{2}, \space c_2 =\frac{1}{2}, \space p =1, \space q=1 \]</div>
+<p>We can also define:
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+k_1 &amp; = F(t_j,S(t_j))\\
+k_2 &amp; = F\left(t_j+ph, S(t_j)+qhk_1\right)
+\end{align}
+\)</span>$</p>
+<p>where we will have:</p>
+<div class="math notranslate nohighlight">
+\[ S(t_{j+1}) = S(t_j) + \frac{1}{2}(k_1+k_2)h \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># RK2 method</span>
+<span class="n">s_rk2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">s_rk2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+
+    <span class="n">k1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s_rk2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">k2</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">s_rk2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">k1</span> <span class="p">)</span>
+    <span class="n">s_rk2</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_rk2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;bo--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Explicit Euler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Exact&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s_mid</span><span class="p">,</span> <span class="s1">&#39;ro-.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Midpoint&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s_rk2</span><span class="p">,</span> <span class="s1">&#39;co:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RK2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$S(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;explicit_euler_midpoint_rk2.pdf&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06047424a7cbb2f328ddc8ee2f3c0c86901fe4f0eaf3ad6fc6a21a0260b9bcf7.png" src="../_images/06047424a7cbb2f328ddc8ee2f3c0c86901fe4f0eaf3ad6fc6a21a0260b9bcf7.png" />
+</div>
+</div>
+</section>
+<section id="fourth-order-runge-kutta-method">
+<h3>Fourth-order Runge-Kutta method<a class="headerlink" href="#fourth-order-runge-kutta-method" title="Permalink to this heading">#</a></h3>
+<p>A classical method for integrating ODEs with a high order of accuracy is the <strong>Fourth-order Runge-Kutta</strong> (RK4) method.
+It is obtained from the Taylor series using similar approach we just discussed in the second-order method.
+This method uses four points <span class="math notranslate nohighlight">\(k_1, k_2, k_3\)</span>, and <span class="math notranslate nohighlight">\(k_4\)</span>.
+A weighted average of these is used to produce the approximation of the solution. The formula is as follows.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+k_1 &amp; = F(t_j,S(t_j))\\
+k_2 &amp; = F\left(t_j+\frac{h}{2},S(t_j)+\frac{1}{2}k_1h\right)\\
+k_3 &amp; = F\left(t_j+\frac{h}{2},S(t_j)+\frac{1}{2}k_2h\right)\\
+k_4 &amp; = F(t_j+h,S(t_j)+k_3h)
+\end{align}
+\end{split}\]</div>
+<p>Therefore, we will have:</p>
+<div class="math notranslate nohighlight">
+\[
+S(t_{j+1}) = S(t_j) + \frac{h}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right).
+\]</div>
+<p>As indicated by its name, the RK4 method is fourth-order accurate, or <span class="math notranslate nohighlight">\(O(h^4)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># RK4 method</span>
+<span class="n">s_rk4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">s_rk4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+
+    <span class="n">k1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s_rk4</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">k2</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">s_rk4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">k1</span><span class="o">/</span><span class="mi">2</span> <span class="p">)</span>
+    <span class="n">k3</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">s_rk4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">k2</span><span class="o">/</span><span class="mi">2</span> <span class="p">)</span>
+    <span class="n">k4</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">s_rk4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="n">k3</span><span class="p">)</span>
+    <span class="n">s_rk4</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_rk4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">h</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">k2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">k3</span> <span class="o">+</span> <span class="n">k4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;bo--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Explicit Euler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Exact&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s_mid</span><span class="p">,</span> <span class="s1">&#39;ro-.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Midpoint&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s_rk2</span><span class="p">,</span> <span class="s1">&#39;co:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RK2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s_rk4</span><span class="p">,</span> <span class="s1">&#39;oy&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RK4&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$S(t)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;explicit_euler_midpoint_rk4.pdf&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/13b3f9a8c485015079fb84ee72698cfb3ad2aeda2b6a428468e2939b3ea68b37.png" src="../_images/13b3f9a8c485015079fb84ee72698cfb3ad2aeda2b6a428468e2939b3ea68b37.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">UCSD PHYS 141/241: Computational Physics I</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../assignments/assignment1/assignment1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Assignment 1</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-method">Euler Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midpoint-method">Midpoint method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictor-corrector-methods">Predictor-Corrector Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runge-kutta-methods">Runge-Kutta Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-order-runge-kutta-method">Second-order Runge-Kutta method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourth-order-runge-kutta-method">Fourth-order Runge-Kutta method</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Javier Duarte
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

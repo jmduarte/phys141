@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Quiz 1 Solution &#8212; UCSD PHYS 141/241</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'quizzes/quiz1_sol';</script>
+    <link rel="canonical" href="https://jduarte.physics.ucsd.edu/phys141/quizzes/quiz1_sol.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/Mice.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/Mice.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    UCSD PHYS 141/241: Computational Physics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/01_Introduction.pdf">Lecture 01: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf">Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lectures/03_Numerical_Methods.html">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/assignment1/assignment1.html">Assignment 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/04_Numerical_Methods_Continued.pdf">Lecture 04: Numerical Integration Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/lab1/Lab1.html">Lab 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/05_NBody.pdf">Lecture 05: N-Body Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quiz1.html">Quiz 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/lab2/Lab2_Numba.html">Lab 2: Numba</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/06_NBody_Continued.pdf">Lecture 06: N-Body Problem (Continued)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/07_CBE.pdf">Lecture 07: Collisionless Boltzmann Equation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/08_Jeans_Plummer.pdf">Lecture 08: Jeans Therom and Plummer Model</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/09_Plummer_MC.pdf">Lecture 09: Plummer Model and Monte Carlo Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quiz2.html">Quiz 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/10_Plummer_MC_Continued.pdf">Lecture 10: Plummer Model and Monte Carlo Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments/assignment2/assignment2.html">Assignment 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../midterm_final/midterm_final.html">Midterm and Final Projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141/issues/new?title=Issue%20on%20page%20%2Fquizzes/quiz1_sol.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/quizzes/quiz1_sol.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Quiz 1 Solution</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-141-241-10-points">Problem 1 (141/241) [10 points]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-141-241-10-points">Problem 2 (141/241) [10 points]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Solution:</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="quiz-1-solution">
+<h1>Quiz 1 Solution<a class="headerlink" href="#quiz-1-solution" title="Permalink to this heading">#</a></h1>
+<p>Physics 141/241: Computational Physics I</p>
+<p>Instructor: Javier Duarte</p>
+<p>Spring 2023</p>
+<p>Due date: <em>Friday, April 14, 2023 5pm</em></p>
+<p>Total points: 10</p>
+<section id="submission-instructions">
+<h2>Submission Instructions<a class="headerlink" href="#submission-instructions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Please submit your quiz as a single <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> file to Gradescope under <strong>Quiz 1</strong>.</p>
+<ul>
+<li><p>For instructions specifically pertaining to the Gradescope submission process, see <a class="reference external" href="https://www.gradescope.com/get_started#student-submission">https://www.gradescope.com/get_started#student-submission</a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="problem-1-141-241-10-points">
+<h2>Problem 1 (141/241) [10 points]<a class="headerlink" href="#problem-1-141-241-10-points" title="Permalink to this heading">#</a></h2>
+<p>In this problem, you will prove that leapfrog integration has exact time-reversal symmetry.
+Recall the kick-drift-kick leapfrog update equations, which tell you how to go from <span class="math notranslate nohighlight">\((x_n, v_n) \to (x_{n+1}, v_{n+1})\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+v_{n+1/2} &amp; = v_n + a(x_n) \Delta t / 2\\
+x_{n+1} &amp;= x_n + v_{n+1/2} \Delta t \\
+v_{n+1} &amp;= v_{n+1/2} + a(x_{n+1}) \Delta t / 2
+\end{align}
+\end{split}\]</div>
+<p>Consider the time-reversed problem, with variables we’ll denote with a prime:
+<span class="math notranslate nohighlight">\(t', x', v', a'\)</span>.
+By flipping the “arrow of time,” some variables are negated with respect to the forward problem.
+That is, <span class="math notranslate nohighlight">\(t' = -t\)</span> and <span class="math notranslate nohighlight">\(v' = -v\)</span>, but <span class="math notranslate nohighlight">\(x' = x\)</span> and <span class="math notranslate nohighlight">\(a' = a\)</span> are unchanged.</p>
+<p>Prove that if you start from the end point in the time-reversed problem <span class="math notranslate nohighlight">\(x'_{n} = x_{n+1}\)</span> and <span class="math notranslate nohighlight">\(v_{n}' = -v_{n+1}\)</span>, then apply the leapfrog update rule, you arrive back at the starting point: <span class="math notranslate nohighlight">\(x'_{n+1} = x_{n}\)</span> and <span class="math notranslate nohighlight">\(v'_{n+1} = -v_{n}\)</span>.</p>
+<p>Hint: recall that <span class="math notranslate nohighlight">\(\Delta t' = - \Delta t\)</span>.</p>
+</section>
+<section id="solution">
+<h2>Solution:<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h2>
+<p>We write down the kick-drift-kick leapfrog update equations using time-reversed coordinates <span class="math notranslate nohighlight">\(t'\)</span>, <span class="math notranslate nohighlight">\(x'\)</span>, <span class="math notranslate nohighlight">\(v'\)</span>, and <span class="math notranslate nohighlight">\(a'\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+v'_{n+1/2} &amp; = v'_{n} + a'(x'_{n}) \Delta t' / 2\\
+x'_{n+1} &amp;= x'_{n} + v'_{n+1/2} \Delta t' \\
+v'_{n+1} &amp;= v'_{n+1/2} + a'(x'_{n+1}) \Delta t' / 2
+\end{align}
+\end{split}\]</div>
+<p>Next, we can relate these equations to the time-forward ones with the facts that <span class="math notranslate nohighlight">\(a' = a\)</span>, <span class="math notranslate nohighlight">\(x'_n = x_{n+1}\)</span>, <span class="math notranslate nohighlight">\(v'_n = v_{n+1}\)</span>, and <span class="math notranslate nohighlight">\(\Delta t' = -\Delta t\)</span> to figure out what <span class="math notranslate nohighlight">\(x'_{n+1}\)</span> and <span class="math notranslate nohighlight">\(v'_{n+1}\)</span> are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+v'_{n+1/2} &amp; = v_{n+1} - a(x_{n+1}) \Delta t / 2\\
+x'_{n+1} &amp;= x_{n+1} - v'_{n+1/2} \Delta t \\
+v'_{n+1} &amp;= v'_{n+1/2} - a(x'_{n+1}) \Delta t / 2
+\end{align}
+\end{split}\]</div>
+<p>Moving terms around a little bit:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+v_{n+1} &amp; = v'_{n+1/2} + a(x_{n+1}) \Delta t / 2\\
+x_{n+1} &amp;= x'_{n+1} + v'_{n+1/2} \Delta t \\
+v'_{n+1/2} &amp;= v'_{n+1} + a(x'_{n+1}) \Delta t / 2
+\end{align}
+\end{split}\]</div>
+<p>Comparing to the time-forward equations, we can tell that <span class="math notranslate nohighlight">\(v'_{n+1/2} = v_{n+1/2}\)</span>. And therefore, <span class="math notranslate nohighlight">\(x'_{n+1} = x_n\)</span> and <span class="math notranslate nohighlight">\(v'_{n+1} = v_n\)</span>. We’ve successfully reveresed one step back in time.</p>
+</section>
+<section id="problem-2-141-241-10-points">
+<h2>Problem 2 (141/241) [10 points]<a class="headerlink" href="#problem-2-141-241-10-points" title="Permalink to this heading">#</a></h2>
+<p>For a uniform sphere of mass <span class="math notranslate nohighlight">\(M\)</span> with radius <span class="math notranslate nohighlight">\(R\)</span>, prove that the gravitational potential <span class="math notranslate nohighlight">\(\Phi\)</span> inside the sphere is related to the mass density <span class="math notranslate nohighlight">\(\rho\)</span> by the following equation (from lecture 5):</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Phi(r) &amp; = -2\pi G\rho(R^2 - \frac{r^2}{3}) &amp;  r \leq R
+\end{align}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho = M/(4\pi R^3 /3)\)</span>.</p>
+<p>Hint: Start from the equations derived from the infinitesimal spherical shell:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\Phi(r) &amp;= G\int_{r_0}^r dr' ~\frac{M(r')}{r'^2}\\
+M(r) &amp; = 4\pi\int_{r_0}^r dr'~ r'^2 \rho(r')
+\end{align}
+\end{split}\]</div>
+</section>
+<section id="id1">
+<h2>Solution:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>First, let’s find the potential at radius <span class="math notranslate nohighlight">\(R\)</span>:</p>
+<p>I can simply claim that the gravitational field outside the sphere is as if it’s a point mass <span class="math notranslate nohighlight">\(M\)</span> at the center. So,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+M &amp;= 4\pi\int_0^R dr' r'^2 \rho = \frac{4\pi}{3} R^3 \rho \\
+\Phi(R) &amp;= \int_{R}^{\infty} dr' \frac{-GM}{r'^2} = -\frac{GM}{R} = -\frac{4\pi}{3}G\rho R^2
+\end{align}
+\end{split}\]</div>
+<p>Next, we find the potential difference when we go from <span class="math notranslate nohighlight">\(R\)</span> to <span class="math notranslate nohighlight">\(r\)</span>. The mass of a uniform sphere of radius <span class="math notranslate nohighlight">\(r\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+M(r) &amp;= \frac{4\pi}{3} r^3 \rho
+\end{align}
+\]</div>
+<p>So, the potential difference is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\Phi(r) - \Phi(R) &amp;= \int_{r}^{R} dr' \frac{-GM(r')}{r'^2} \\
+&amp;= - \frac{4\pi}{3}G\rho \int_{r}^{R} dr' r' \\
+&amp;= - \frac{4\pi}{3}G\rho \left[\frac{R^2}{2} - \frac{r^2}{2}\right]
+\end{align}
+\end{split}\]</div>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\Phi(r) &amp;= -\frac{4\pi}{3}G\rho R^2 - \frac{4\pi}{3}G\rho \left[\frac{R^2}{2} - \frac{r^2}{2}\right] \\
+&amp;= -2\pi G\rho R^2 + \frac{2\pi}{3}G\rho r^2 \\
+&amp;= -2\pi G\rho(R^2 - \frac{r^2}{3})
+\end{align}
+\end{split}\]</div>
+<p>which is the gravitational potential inside a uniform sphere (<span class="math notranslate nohighlight">\(r \leq R\)</span>).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./quizzes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-141-241-10-points">Problem 1 (141/241) [10 points]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-141-241-10-points">Problem 2 (141/241) [10 points]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Solution:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Javier Duarte
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

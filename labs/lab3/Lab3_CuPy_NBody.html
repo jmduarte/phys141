@@ -1,0 +1,1134 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lab 03: CuPy &amp; N-Body &#8212; UCSD PHYS 141/241</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab3/Lab3_CuPy_NBody';</script>
+    <link rel="canonical" href="https://jduarte.physics.ucsd.edu/phys141/labs/lab3/Lab3_CuPy_NBody.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Mice.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Mice.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    UCSD PHYS 141/241: Computational Physics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/01_Introduction.pdf">Lecture 01: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf">Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/03_Numerical_Methods.html">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment1/assignment1.html">Assignment 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/04_Numerical_Methods_Continued.pdf">Lecture 04: Numerical Integration Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab1/Lab1.html">Lab 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/05_NBody.pdf">Lecture 05: N-Body Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quizzes/quiz1.html">Quiz 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab2/Lab2_Numba.html">Lab 2: Numba</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/06_NBody_Continued.pdf">Lecture 06: N-Body Problem (Continued)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/07_CBE.pdf">Lecture 07: Collisionless Boltzmann Equation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/08_Jeans_Plummer.pdf">Lecture 08: Jeans Therom and Plummer Model</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/09_Plummer_MC.pdf">Lecture 09: Plummer Model and Monte Carlo Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quizzes/quiz2.html">Quiz 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/10_Plummer_MC_Continued.pdf">Lecture 10: Plummer Model and Monte Carlo Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment2/assignment2.html">Assignment 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../midterm_final/midterm_final.html">Midterm and Final Projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/jmduarte/phys141/main?urlpath=tree/labs/lab3/Lab3_CuPy_NBody.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://datahub.ucsd.edu/hub/user-redirect/git-pull?repo=https%3A//github.com/jmduarte/phys141&urlpath=tree/phys141/labs/lab3/Lab3_CuPy_NBody.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/jmduarte/phys141/blob/main/labs/lab3/Lab3_CuPy_NBody.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141/issues/new?title=Issue%20on%20page%20%2Flabs/lab3/Lab3_CuPy_NBody.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab3/Lab3_CuPy_NBody.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 03: CuPy & N-Body</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-cupy">Install CuPy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-example">NumPy example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-cpu-arrays">Create CPU arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmark-numpy">Benchmark NumPy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cupy-example">CuPy example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-gpu-arrays">Create GPU arrays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cupy-kernel-example">CuPy Kernel example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-body">N-Body</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-based">Loop-based</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized">Vectorized</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-03-cupy-n-body">
+<h1>Lab 03: CuPy &amp; N-Body<a class="headerlink" href="#lab-03-cupy-n-body" title="Permalink to this heading">#</a></h1>
+<p>Links:</p>
+<ul class="simple">
+<li><p><a class="github reference external" href="https://github.com/jacobtomlinson/gpu-python-tutorial">jacobtomlinson/gpu-python-tutorial</a></p></li>
+<li><p><a class="reference external" href="https://docs.cupy.dev/en/stable/user_guide/index.html">https://docs.cupy.dev/en/stable/user_guide/index.html</a></p></li>
+<li><p><a class="github reference external" href="https://github.com/pleiszenburg/gravitation">pleiszenburg/gravitation</a></p></li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda">https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda</a></p></li>
+<li><p><a class="reference external" href="https://medium.com/swlh/create-your-own-n-body-simulation-with-python-f417234885e9">https://medium.com/swlh/create-your-own-n-body-simulation-with-python-f417234885e9</a></p></li>
+</ul>
+<p>Slides:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/17HOQBO87Z_kTTnaO2Tl1O-Ps1IAsr7sZt72DqylgyD4/edit?usp=sharing">https://docs.google.com/presentation/d/17HOQBO87Z_kTTnaO2Tl1O-Ps1IAsr7sZt72DqylgyD4/edit?usp=sharing</a></p></li>
+</ul>
+<section id="install-cupy">
+<h2>Install CuPy<a class="headerlink" href="#install-cupy" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cupy-cuda11x<span class="w"> </span>--user
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting cupy-cuda11x
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading cupy_cuda11x-12.1.0-cp39-cp39-manylinux2014_x86_64.whl (89.9 MB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/89.9 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.6/89.9 MB</span> <span class=" -Color -Color-Red">47.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+     ━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.2/89.9 MB</span> <span class=" -Color -Color-Red">59.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.3/89.9 MB</span> <span class=" -Color -Color-Red">72.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">10.0/89.9 MB</span> <span class=" -Color -Color-Red">70.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">13.9/89.9 MB</span> <span class=" -Color -Color-Red">83.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">18.3/89.9 MB</span> <span class=" -Color -Color-Red">105.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">18.9/89.9 MB</span> <span class=" -Color -Color-Red">103.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">21.4/89.9 MB</span> <span class=" -Color -Color-Red">76.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">25.0/89.9 MB</span> <span class=" -Color -Color-Red">74.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">28.5/89.9 MB</span> <span class=" -Color -Color-Red">69.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">32.0/89.9 MB</span> <span class=" -Color -Color-Red">100.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">35.7/89.9 MB</span> <span class=" -Color -Color-Red">101.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">38.9/89.9 MB</span> <span class=" -Color -Color-Red">98.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">42.4/89.9 MB</span> <span class=" -Color -Color-Red">98.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">46.1/89.9 MB</span> <span class=" -Color -Color-Red">103.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">47.6/89.9 MB</span> <span class=" -Color -Color-Red">81.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">50.7/89.9 MB</span> <span class=" -Color -Color-Red">80.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">54.8/89.9 MB</span> <span class=" -Color -Color-Red">81.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">55.6/89.9 MB</span> <span class=" -Color -Color-Red">79.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">57.7/89.9 MB</span> <span class=" -Color -Color-Red">70.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">61.3/89.9 MB</span> <span class=" -Color -Color-Red">74.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━ <span class=" -Color -Color-Green">65.3/89.9 MB</span> <span class=" -Color -Color-Red">73.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━ <span class=" -Color -Color-Green">69.1/89.9 MB</span> <span class=" -Color -Color-Red">108.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━ <span class=" -Color -Color-Green">72.8/89.9 MB</span> <span class=" -Color -Color-Red">108.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━ <span class=" -Color -Color-Green">76.2/89.9 MB</span> <span class=" -Color -Color-Red">99.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━ <span class=" -Color -Color-Green">79.6/89.9 MB</span> <span class=" -Color -Color-Red">95.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━ <span class=" -Color -Color-Green">82.9/89.9 MB</span> <span class=" -Color -Color-Red">89.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━ <span class=" -Color -Color-Green">86.3/89.9 MB</span> <span class=" -Color -Color-Red">91.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">100.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">89.9/89.9 MB</span> <span class=" -Color -Color-Red">21.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&lt;1.27,&gt;=1.20 in /usr/share/miniconda/envs/phys141/lib/python3.9/site-packages (from cupy-cuda11x) (1.24.3)
+Requirement already satisfied: fastrlock&gt;=0.5 in /usr/share/miniconda/envs/phys141/lib/python3.9/site-packages (from cupy-cuda11x) (0.8)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: cupy-cuda11x
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed cupy-cuda11x-12.1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-libraries">
+<h2>Import libraries<a class="headerlink" href="#import-libraries" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">File</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">phys141</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">cupy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">17</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">17</span>     <span class="kn">from</span> <span class="nn">cupy</span> <span class="kn">import</span> <span class="n">_core</span>  <span class="c1"># NOQA</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">phys141</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">cupy</span><span class="o">/</span><span class="n">_core</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># mypy: ignore-errors</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">cupy._core</span> <span class="kn">import</span> <span class="n">core</span>  <span class="c1"># NOQA</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">cupy._core</span> <span class="kn">import</span> <span class="n">fusion</span>  <span class="c1"># NOQA</span>
+
+<span class="nn">File cupy/_core/core.pyx:1,</span> in <span class="ni">init cupy._core.core</span><span class="nt">()</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">phys141</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">cupy</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">cupy._environment</span> <span class="kn">import</span> <span class="n">get_hipcc_path</span>  <span class="c1"># NOQA</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">cupy.cuda</span> <span class="kn">import</span> <span class="n">compiler</span>  <span class="c1"># NOQA</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">cupy.cuda</span> <span class="kn">import</span> <span class="n">device</span>  <span class="c1"># NOQA</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">phys141</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">cupy</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="n">compiler</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">14</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">cupy.cuda</span> <span class="kn">import</span> <span class="n">device</span>
+<span class="ne">---&gt; </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">cupy.cuda</span> <span class="kn">import</span> <span class="n">function</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">cupy.cuda</span> <span class="kn">import</span> <span class="n">get_rocm_path</span>
+
+<span class="nn">File cupy/cuda/function.pyx:1,</span> in <span class="ni">init cupy.cuda.function</span><span class="nt">()</span>
+
+<span class="nn">File cupy/_core/_carray.pyx:1,</span> in <span class="ni">init cupy._core._carray</span><span class="nt">()</span>
+
+<span class="nn">File cupy/_core/internal.pyx:1,</span> in <span class="ni">init cupy._core.internal</span><span class="nt">()</span>
+
+<span class="nn">File cupy/cuda/memory.pyx:1,</span> in <span class="ni">init cupy.cuda.memory</span><span class="nt">()</span>
+
+<span class="ne">ImportError</span>: libcuda.so.1: cannot open shared object file: No such file or directory
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">phys141</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">cupy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">19</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="kn">from</span> <span class="nn">cupy</span> <span class="kn">import</span> <span class="n">_core</span>  <span class="c1"># NOQA</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">19</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span><span class="s1"> ================================================================</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span><span class="s1"> </span><span class="si">{</span><span class="n">_environment</span><span class="o">.</span><span class="n">_diagnose_import_error</span><span class="p">()</span><span class="si">}</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span><span class="s1"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span><span class="s1"> Original error:</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span><span class="s1">   </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span><span class="s1"> ================================================================</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="s1"> &#39;&#39;&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="kn">from</span> <span class="nn">cupy</span> <span class="kn">import</span> <span class="n">cuda</span>  <span class="c1"># NOQA</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="c1"># Do not make `cupy.cupyx` available because it is confusing.</span>
+
+<span class="ne">ImportError</span>: 
+<span class="o">================================================================</span>
+<span class="n">Failed</span> <span class="n">to</span> <span class="kn">import</span> <span class="nn">CuPy.</span>
+
+<span class="n">If</span> <span class="n">you</span> <span class="n">installed</span> <span class="n">CuPy</span> <span class="n">via</span> <span class="n">wheels</span> <span class="p">(</span><span class="n">cupy</span><span class="o">-</span><span class="n">cudaXXX</span> <span class="ow">or</span> <span class="n">cupy</span><span class="o">-</span><span class="n">rocm</span><span class="o">-</span><span class="n">X</span><span class="o">-</span><span class="n">X</span><span class="p">),</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">that</span> <span class="n">the</span> <span class="n">package</span> <span class="n">matches</span> <span class="k">with</span> <span class="n">the</span> <span class="n">version</span> <span class="n">of</span> <span class="n">CUDA</span> <span class="ow">or</span> <span class="n">ROCm</span> <span class="n">installed</span><span class="o">.</span>
+
+<span class="n">On</span> <span class="n">Linux</span><span class="p">,</span> <span class="n">you</span> <span class="n">may</span> <span class="n">need</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">LD_LIBRARY_PATH</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">depending</span> <span class="n">on</span> <span class="n">how</span> <span class="n">you</span> <span class="n">installed</span> <span class="n">CUDA</span><span class="o">/</span><span class="n">ROCm</span><span class="o">.</span>
+<span class="n">On</span> <span class="n">Windows</span><span class="p">,</span> <span class="k">try</span> <span class="n">setting</span> <span class="n">CUDA_PATH</span> <span class="n">environment</span> <span class="n">variable</span><span class="o">.</span>
+
+<span class="n">Check</span> <span class="n">the</span> <span class="n">Installation</span> <span class="n">Guide</span> <span class="k">for</span> <span class="n">details</span><span class="p">:</span>
+  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">docs</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">dev</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">html</span>
+
+<span class="n">Original</span> <span class="n">error</span><span class="p">:</span>
+  <span class="ne">ImportError</span><span class="p">:</span> <span class="n">libcuda</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span><span class="p">:</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">shared</span> <span class="nb">object</span> <span class="n">file</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
+<span class="o">================================================================</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="numpy-example">
+<h2>NumPy example<a class="headerlink" href="#numpy-example" title="Permalink to this heading">#</a></h2>
+<p>We’ll revisit the NumPy example of calculating the invariant mass for a million relativisitic particles.</p>
+<section id="create-cpu-arrays">
+<h3>Create CPU arrays<a class="headerlink" href="#create-cpu-arrays" title="Permalink to this heading">#</a></h3>
+<p>First we create the arrays <em>on the CPU</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="n">pz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="benchmark-numpy">
+<h3>Benchmark NumPy<a class="headerlink" href="#benchmark-numpy" title="Permalink to this heading">#</a></h3>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code> magic command to test the time of this cell.</p>
+<p>From the last lab, we saw this wasn’t as optimal as creating a special <em>kernel</em> that could be <em>just-in-time compiled</em> with Numba, but just as a simple benchmark.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="n">mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">energy</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">px</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">py</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">pz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cupy-example">
+<h2>CuPy example<a class="headerlink" href="#cupy-example" title="Permalink to this heading">#</a></h2>
+<section id="create-gpu-arrays">
+<h3>Create GPU arrays<a class="headerlink" href="#create-gpu-arrays" title="Permalink to this heading">#</a></h3>
+<p>Now, we can create the arrays <em>on the GPU</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="n">px_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="n">py_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="n">pz_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cupyx.profiler</span> <span class="kn">import</span> <span class="n">benchmark</span>
+
+<span class="k">def</span> <span class="nf">cp_mass</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">pz</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">energy</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">px</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">py</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">pz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">benchmark</span><span class="p">(</span><span class="n">cp_mass</span><span class="p">,</span> <span class="p">(</span><span class="n">energy_gpu</span><span class="p">,</span> <span class="n">px_gpu</span><span class="p">,</span> <span class="n">py_gpu</span><span class="p">,</span> <span class="n">pz_gpu</span><span class="p">),</span> <span class="n">n_repeat</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note, it’s not a huge speedup over vanilla NumPy. Why is that?</p>
+</section>
+</section>
+<section id="cupy-kernel-example">
+<h2>CuPy Kernel example<a class="headerlink" href="#cupy-kernel-example" title="Permalink to this heading">#</a></h2>
+<p>We can remove the pure Python overhead in betewen calcualtions, by creating a custom “elementwise” kernel that will run the entire calculation on the GPU.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cp_mass_kernel</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">ElementwiseKernel</span><span class="p">(</span>
+   <span class="s1">&#39;float64 e, float64 px, float64 py, float64 pz&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;float64 m&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;m = sqrt(e * e - px * px - py * py - pz * pz)&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;cp_mass_kernel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">benchmark</span><span class="p">(</span><span class="n">cp_mass_kernel</span><span class="p">,</span> <span class="p">(</span><span class="n">energy_gpu</span><span class="p">,</span> <span class="n">px_gpu</span><span class="p">,</span> <span class="n">py_gpu</span><span class="p">,</span> <span class="n">pz_gpu</span><span class="p">),</span> <span class="n">n_repeat</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It’s much faster!</p>
+</section>
+<section id="n-body">
+<h2>N-Body<a class="headerlink" href="#n-body" title="Permalink to this heading">#</a></h2>
+<section id="loop-based">
+<h3>Loop-based<a class="headerlink" href="#loop-based" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getAcc</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">softening</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the acceleration on each particle due to Newton&#39;s Law </span>
+<span class="sd">    pos  is an N x 3 matrix of positions</span>
+<span class="sd">    mass is an N x 1 vector of masses</span>
+<span class="sd">    G is Newton&#39;s Gravitational constant</span>
+<span class="sd">    softening is the softening length</span>
+<span class="sd">    a is N x 3 matrix of accelerations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">N</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">));</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">dz</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">inv_r3</span> <span class="o">=</span> <span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dz</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">softening</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span>  <span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">inv_r3</span><span class="p">)</span> <span class="o">*</span> <span class="n">mass</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span>  <span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">dy</span> <span class="o">*</span> <span class="n">inv_r3</span><span class="p">)</span> <span class="o">*</span> <span class="n">mass</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span>  <span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">dz</span> <span class="o">*</span> <span class="n">inv_r3</span><span class="p">)</span> <span class="o">*</span> <span class="n">mass</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="vectorized">
+<h3>Vectorized<a class="headerlink" href="#vectorized" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getAcc</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">softening</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the acceleration on each particle due to Newton&#39;s Law</span>
+<span class="sd">    pos  is an N x 3 matrix of positions</span>
+<span class="sd">    mass is an N x 1 vector of masses</span>
+<span class="sd">    G is Newton&#39;s Gravitational constant</span>
+<span class="sd">    softening is the softening length</span>
+<span class="sd">    a is N x 3 matrix of accelerations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># positions r = [x,y,z] for all particles</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    
+    <span class="c1"># matrix that stores all pairwise particle separations: r_j - r_i</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">x</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">y</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">z</span>
+    
+    <span class="c1"># matrix that stores 1/r^3 for all particle pairwise particle separations </span>
+    <span class="n">inv_r3</span> <span class="o">=</span> <span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dz</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">softening</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">)</span>
+    
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">inv_r3</span><span class="p">)</span> <span class="o">@</span> <span class="n">mass</span>
+    <span class="n">ay</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">dy</span> <span class="o">*</span> <span class="n">inv_r3</span><span class="p">)</span> <span class="o">@</span> <span class="n">mass</span>
+    <span class="n">az</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="p">(</span><span class="n">dz</span> <span class="o">*</span> <span class="n">inv_r3</span><span class="p">)</span> <span class="o">@</span> <span class="n">mass</span>
+    
+    <span class="c1"># pack together the acceleration components</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">ax</span><span class="p">,</span><span class="n">ay</span><span class="p">,</span><span class="n">az</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getEnergy</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get kinetic energy (KE) and potential energy (PE) of simulation</span>
+<span class="sd">    pos is N x 3 matrix of positions</span>
+<span class="sd">    vel is N x 3 matrix of velocities</span>
+<span class="sd">    mass is an N x 1 vector of masses</span>
+<span class="sd">    G is Newton&#39;s Gravitational constant</span>
+<span class="sd">    KE is the kinetic energy of the system</span>
+<span class="sd">    PE is the potential energy of the system</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Kinetic Energy:</span>
+    <span class="n">KE</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">vel</span><span class="o">**</span><span class="mi">2</span> <span class="p">))</span>
+
+    <span class="c1"># Potential Energy:</span>
+
+    <span class="c1"># positions r = [x,y,z] for all particles</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># matrix that stores all pairwise particle separations: r_j - r_i</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">x</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">y</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">z</span>
+
+    <span class="c1"># matrix that stores 1/r for all particle pairwise particle separations </span>
+    <span class="n">inv_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">inv_r</span><span class="p">[</span><span class="n">inv_r</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">inv_r</span><span class="p">[</span><span class="n">inv_r</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># sum over upper triangle, to count each interaction only once</span>
+    <span class="n">PE</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">mass</span><span class="o">*</span><span class="n">mass</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">inv_r</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+    
+    <span class="k">return</span> <span class="n">KE</span><span class="p">,</span> <span class="n">PE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="c1"># Simulation parameters</span>
+<span class="n">N</span>         <span class="o">=</span> <span class="mi">100</span>    <span class="c1"># Number of particles</span>
+<span class="n">t</span>         <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># current time of the simulation</span>
+<span class="n">tEnd</span>      <span class="o">=</span> <span class="mf">10.0</span>   <span class="c1"># time at which simulation ends</span>
+<span class="n">dt</span>        <span class="o">=</span> <span class="mf">0.01</span>   <span class="c1"># timestep</span>
+<span class="n">softening</span> <span class="o">=</span> <span class="mf">0.1</span>    <span class="c1"># softening length</span>
+<span class="n">G</span>         <span class="o">=</span> <span class="mf">1.0</span>    <span class="c1"># Newton&#39;s Gravitational Constant</span>
+<span class="n">plotRealTime</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># switch on for plotting as the simulation goes along</span>
+
+<span class="c1"># Generate Initial Conditions</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>            <span class="c1"># set the random number generator seed</span>
+
+<span class="n">mass</span> <span class="o">=</span> <span class="mf">20.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="n">N</span>  <span class="c1"># total mass of particles is 20</span>
+<span class="n">pos</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>   <span class="c1"># randomly selected positions and velocities</span>
+<span class="n">vel</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Convert to Center-of-Mass frame</span>
+<span class="n">vel</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mass</span> <span class="o">*</span> <span class="n">vel</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mass</span><span class="p">)</span>
+
+<span class="c1"># calculate initial gravitational accelerations</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">getAcc</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">softening</span> <span class="p">)</span>
+
+<span class="c1"># calculate initial energy of system</span>
+<span class="n">KE</span><span class="p">,</span> <span class="n">PE</span>  <span class="o">=</span> <span class="n">getEnergy</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span> <span class="p">)</span>
+
+<span class="c1"># number of timesteps</span>
+<span class="n">Nt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">tEnd</span><span class="o">/</span><span class="n">dt</span><span class="p">))</span>
+
+<span class="c1"># save energies, particle orbits for plotting trails</span>
+<span class="n">pos_save</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">pos_save</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span>
+<span class="n">KE_save</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">KE_save</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">KE</span>
+<span class="n">PE_save</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">PE_save</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">PE</span>
+<span class="n">t_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">Nt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+
+    
+<span class="c1"># Simulation Main Loop</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span><span class="p">):</span>
+    <span class="c1"># (1/2) kick</span>
+    <span class="n">vel</span> <span class="o">+=</span> <span class="n">acc</span> <span class="o">*</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.0</span>
+
+    <span class="c1"># drift</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="n">vel</span> <span class="o">*</span> <span class="n">dt</span>
+
+    <span class="c1"># update accelerations</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">getAcc</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">softening</span> <span class="p">)</span>
+
+    <span class="c1"># (1/2) kick</span>
+    <span class="n">vel</span> <span class="o">+=</span> <span class="n">acc</span> <span class="o">*</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.0</span>
+
+    <span class="c1"># update time</span>
+    <span class="n">t</span> <span class="o">+=</span> <span class="n">dt</span>
+
+    <span class="c1"># get energy of system</span>
+    <span class="n">KE</span><span class="p">,</span> <span class="n">PE</span>  <span class="o">=</span> <span class="n">getEnergy</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">G</span> <span class="p">)</span>
+
+    <span class="c1"># save energies, positions for plotting trail</span>
+    <span class="n">pos_save</span><span class="p">[:,:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="n">KE_save</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">KE</span>
+    <span class="n">PE_save</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">PE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nt</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">pos_save</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">):</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">pos_save</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">):</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span><span class="n">yy</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mf">.7</span><span class="p">,</span><span class="mf">.7</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">pos</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_all</span><span class="p">,</span><span class="n">KE_save</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;KE&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">Nt</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_all</span><span class="p">,</span><span class="n">PE_save</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;PE&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">Nt</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t_all</span><span class="p">,</span><span class="n">KE_save</span><span class="o">+</span><span class="n">PE_save</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Etot&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">Nt</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tEnd</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mf">0.007</span><span class="p">)</span>
+
+    <span class="c1"># add labels/legend</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;energy&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Save figure</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nbody_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">240</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./labs/lab3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-cupy">Install CuPy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">Import libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-example">NumPy example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-cpu-arrays">Create CPU arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmark-numpy">Benchmark NumPy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cupy-example">CuPy example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-gpu-arrays">Create GPU arrays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cupy-kernel-example">CuPy Kernel example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-body">N-Body</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-based">Loop-based</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized">Vectorized</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Javier Duarte
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lab 1: Introduction &#8212; UCSD PHYS 141/241</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab1/Lab1';</script>
+    <link rel="canonical" href="https://jduarte.physics.ucsd.edu/phys141/labs/lab1/Lab1.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Quiz 1" href="../../quizzes/quiz1.html" />
+    <link rel="prev" title="Assignment 1" href="../../assignments/assignment1/assignment1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Mice.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Mice.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    UCSD PHYS 141/241: Computational Physics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/01_Introduction.pdf">Lecture 01: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf">Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/03_Numerical_Methods.html">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment1/assignment1.html">Assignment 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 2</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/04_Numerical_Methods_Continued.pdf">Lecture 04: Numerical Integration Methods (Continued)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/05_NBody.pdf">Lecture 05: N-Body Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quizzes/quiz1.html">Quiz 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab2/Lab2_Numba.html">Lab 2: Numba</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/06_NBody_Continued.pdf">Lecture 06: N-Body Problem (Continued)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/07_CBE.pdf">Lecture 07: Collisionless Boltzmann Equation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/08_Jeans_Plummer.pdf">Lecture 08: Jeans Therom and Plummer Model</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/09_Plummer_MC.pdf">Lecture 09: Plummer Model and Monte Carlo Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quizzes/quiz2.html">Quiz 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/10_Plummer_MC_Continued.pdf">Lecture 10: Plummer Model and Monte Carlo Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment2/assignment2.html">Assignment 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../midterm_final/midterm_final.html">Midterm and Final Projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/jmduarte/phys141/main?urlpath=tree/labs/lab1/Lab1.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://datahub.ucsd.edu/hub/user-redirect/git-pull?repo=https%3A//github.com/jmduarte/phys141&urlpath=tree/phys141/labs/lab1/Lab1.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/jmduarte/phys141/blob/main/labs/lab1/Lab1.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141/issues/new?title=Issue%20on%20page%20%2Flabs/lab1/Lab1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab1/Lab1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 1: Introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-array-basics">NumPy array basics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data-with-numpy">Loading data with Numpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slicing-data">Slicing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-data">Analyzing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-data">Visualizing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-your-own-plot">Make your own plot</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-introduction">
+<h1>Lab 1: Introduction<a class="headerlink" href="#lab-1-introduction" title="Permalink to this heading">#</a></h1>
+<p>Some helpful links:</p>
+<ul class="simple">
+<li><p>Python (<a class="reference external" href="https://docs.python.org/3.9/tutorial/index.html">https://docs.python.org/3.9/tutorial/index.html</a>): an introduction to the Python programming language</p></li>
+<li><p>Google Colab (<a class="reference external" href="https://colab.research.google.com/">https://colab.research.google.com/</a>): for Python development in your web-browser</p></li>
+<li><p>Miniconda (<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>): a free minimal installer for conda</p></li>
+<li><p>NumPy (<a class="reference external" href="https://numpy.org/doc/stable/user/quickstart.html">https://numpy.org/doc/stable/user/quickstart.html</a>): a widely used library for mathematical operations in Python</p></li>
+<li><p>Seaborn (<a class="reference external" href="https://seaborn.pydata.org/">https://seaborn.pydata.org/</a>): a library for creating nice looking graphs and figures</p></li>
+</ul>
+<section id="numpy-array-basics">
+<h2>NumPy array basics<a class="headerlink" href="#numpy-array-basics" title="Permalink to this heading">#</a></h2>
+<p>The basic data structure is a NumPy array</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import NumPy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a 1D array (i.e. a vector)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the &quot;shape&quot; of the array</span>
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a 2D array (i.e. a matrix)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> 
+              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the shape of w</span>
+<span class="n">w</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do a matrix multiplication</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note, this is the same</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">w</span> <span class="o">@</span> <span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[30 30]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2,)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="loading-data-with-numpy">
+<h2>Loading data with Numpy<a class="headerlink" href="#loading-data-with-numpy" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s2">&quot;data/leapfrog_sho.txt&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.        0.        1.        0.      ]
+ [ 0.125     0.        0.992197 -0.124665]
+ [ 0.25      0.        0.96891  -0.247384]
+ [ 0.375     0.        0.930502 -0.366242]
+ [ 0.5       0.        0.877573 -0.479385]
+ [ 0.625     0.        0.810948 -0.585046]
+ [ 0.75      0.        0.731668 -0.681578]
+ [ 0.875     0.        0.64097  -0.767473]
+ [ 1.        0.        0.540268 -0.84139 ]
+ [ 1.125     0.        0.431135 -0.902177]
+ [ 1.25      0.        0.315274 -0.948885]
+ [ 1.375     0.        0.194493 -0.980784]
+ [ 1.5       0.        0.070676 -0.997378]
+ [ 1.625     0.       -0.054243 -0.998406]
+ [ 1.75      0.       -0.178316 -0.983853]
+ [ 1.875     0.       -0.299606 -0.953946]
+ [ 2.        0.       -0.416221 -0.909153]
+ [ 2.125     0.       -0.52634  -0.85017 ]
+ [ 2.25      0.       -0.628245 -0.777921]
+ [ 2.375     0.       -0.720346 -0.693531]
+ [ 2.5       0.       -0.801204 -0.598318]
+ [ 2.625     0.       -0.86956  -0.493767]
+ [ 2.75      0.       -0.924345 -0.381511]
+ [ 2.875     0.       -0.964705 -0.263301]
+ [ 3.        0.       -0.99001  -0.140982]
+ [ 3.125     0.       -0.999864 -0.016463]
+ [ 3.25      0.       -0.994115  0.108313]
+ [ 3.375     0.       -0.972852  0.231399]
+ [ 3.5       0.       -0.936407  0.350874]
+ [ 3.625     0.       -0.885348  0.464873]
+ [ 3.75      0.       -0.820472  0.571617]
+ [ 3.875     0.       -0.742792  0.66944 ]
+ [ 4.        0.       -0.65352   0.756816]
+ [ 4.125     0.       -0.55405   0.832382]
+ [ 4.25      0.       -0.445933  0.894957]
+ [ 4.375     0.       -0.330856  0.943566]
+ [ 4.5       0.       -0.210617  0.977449]
+ [ 4.625     0.       -0.08709   0.996079]
+ [ 4.75      0.        0.037795  0.999164]
+ [ 4.875     0.        0.162091  0.986655]
+ [ 5.        0.        0.283857  0.958749]
+ [ 5.125     0.        0.401194  0.915881]
+ [ 5.25      0.        0.512269  0.85872 ]
+ [ 5.375     0.        0.61535   0.788158]
+ [ 5.5       0.        0.708828  0.705296]
+ [ 5.625     0.        0.791244  0.611426]
+ [ 5.75      0.        0.861311  0.508016]
+ [ 5.875     0.        0.917938  0.396676]
+ [ 6.        0.        0.960238  0.279147]
+ [ 6.125     0.        0.987554  0.157261]
+ [ 6.25      0.        0.999458  0.032921]
+ [ 6.375     0.        0.995764 -0.091933]
+ [ 6.5       0.        0.976531 -0.215352]
+ [ 6.625     0.        0.942058 -0.33541 ]
+ [ 6.75      0.        0.892883 -0.450234]
+ [ 6.875     0.        0.829774 -0.558032]
+ [ 7.        0.        0.753715 -0.657121]
+ [ 7.125     0.        0.665894 -0.745955]
+ [ 7.25      0.        0.567681 -0.823148]
+ [ 7.375     0.        0.460609 -0.887495]
+ [ 7.5       0.        0.346349 -0.937991]
+ [ 7.625     0.        0.226684 -0.97385 ]
+ [ 7.75      0.        0.103481 -0.99451 ]
+ [ 7.875     0.       -0.021337 -0.99965 ]
+ [ 8.        0.       -0.145822 -0.98919 ]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">np.loadtxt(...)</span></code> is a function call that asks Python to run the function] <code class="docutils literal notranslate"><span class="pre">loadtxt</span></code> that
+belongs to the NumPy library.
+The dot notation in Python is used most of all as an object attribute/property specifier or for invoking its method.
+<code class="docutils literal notranslate"><span class="pre">object.property</span></code> will give you the object.property value, <code class="docutils literal notranslate"><span class="pre">object_name.method()</span></code> will invoke on object_name method.</p>
+<p><code class="docutils literal notranslate"><span class="pre">np.loadtxt</span></code> has two parameters: the name of the file we want to read and the delimiter that separates values on a line.
+These both need to be character strings (or strings for short), so we put them in quotes.</p>
+<p>By default, only a few rows and columns are shown (with <code class="docutils literal notranslate"><span class="pre">...</span></code> to omit elements when displaying big arrays).
+Note that, to save space when displaying NumPy arrays, Python does not show us trailing zeros, so <code class="docutils literal notranslate"><span class="pre">1.0</span></code> becomes <code class="docutils literal notranslate"><span class="pre">1.</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s print out some features of this data</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;numpy.ndarray&#39;&gt;
+float64
+(65, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output tells us that the <code class="docutils literal notranslate"><span class="pre">data</span></code> array variable contains 65 rows and 4 columns.
+When we created the variable <code class="docutils literal notranslate"><span class="pre">data</span></code> to store our data, we did not only create the array; we also created information about the array, called members or attributes.
+<code class="docutils literal notranslate"><span class="pre">data.shape</span></code> is an attribute of <code class="docutils literal notranslate"><span class="pre">data</span></code> which describes the dimensions of <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>If we want to get a single number from the array, we must provide an index in square brackets after the variable name, just as we do in math when referring to an element of a matrix.</p>
+<p>Our data has two dimensions, so we will need to use two indices to refer to one specific value:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;first value in data: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>first value in data: 0.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;middle value in data: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>middle value in data: 3.75
+</pre></div>
+</div>
+</div>
+</div>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">data[30,</span> <span class="pre">0]</span></code> accesses the element at row 30, column 0, while <code class="docutils literal notranslate"><span class="pre">data[0,</span> <span class="pre">0]</span></code> accesses the element at row 0, column 0.
+Languages in the C family (including C++, Java, Perl, and Python) count from 0 because it represents an offset from the first value in the array (the second value is offset by one index from the first value).
+As a result, if we have an <span class="math notranslate nohighlight">\(M\times N\)</span> array in Python, its indices go from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(M-1\)</span> on the first axis and <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(N-1\)</span> on the second.</p>
+<p><img alt="&quot;data&quot; is a 3 by 3 numpy array containing row 0: ['A', 'B', 'C'], row 1: ['D', 'E', 'F'], androw 2: ['G', 'H', 'I']. Starting in the upper left hand corner, data[0, 0] = 'A', data[0, 1] = 'B', data[0, 2] = 'C', data[1, 0] = 'D', data[1, 1] = 'E', data[1, 2] = 'F', data[2, 0] = 'G', data[2, 1] = 'H', and data[2, 2] = 'I', in the bottom right hand corner." src="../../_images/python-zero-index.svg" /></p>
+<p>When Python displays an array, it shows the element with index <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0]</span></code> in the upper left corner rather than the lower left.
+This is consistent with the way mathematicians draw matrices but different from the Cartesian coordinates.
+The indices are (row, column) instead of (column, row) for the same reason, which can be confusing when plotting data.</p>
+</section>
+<section id="slicing-data">
+<h2>Slicing data<a class="headerlink" href="#slicing-data" title="Permalink to this heading">#</a></h2>
+<p>An index like <code class="docutils literal notranslate"><span class="pre">[30,</span> <span class="pre">0]</span></code> selects a single element of an array, but we can select whole sections as well.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.        0.        1.        0.      ]
+ [ 0.125     0.        0.992197 -0.124665]
+ [ 0.25      0.        0.96891  -0.247384]
+ [ 0.375     0.        0.930502 -0.366242]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The slice <code class="docutils literal notranslate"><span class="pre">0:4</span></code> means, “Start at index 0 and go up to, but not including, index 4”.
+The difference between the upper and lower bounds is the number of values in the slice.</p>
+<p>We don’t have to start slices at 0:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.625     0.        0.810948 -0.585046]
+ [ 0.75      0.        0.731668 -0.681578]
+ [ 0.875     0.        0.64097  -0.767473]
+ [ 1.        0.        0.540268 -0.84139 ]
+ [ 1.125     0.        0.431135 -0.902177]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also don’t have to include the upper and lower bound on the slice.
+If we don’t include the lower bound, Python uses <code class="docutils literal notranslate"><span class="pre">0</span></code> by default; if we don’t include the upper, the slice runs to the end of the axis, and if we don’t include either (i.e., if we use <code class="docutils literal notranslate"><span class="pre">:</span></code> on its own), the slice includes everything:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">small</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;small is:</span><span class="se">\n</span><span class="si">{</span><span class="n">small</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>small is:
+[[ 1.        0.      ]
+ [ 0.992197 -0.124665]
+ [ 0.96891  -0.247384]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above example selects rows 0 through 2 and columns 2 through to the end of the array.</p>
+</section>
+<section id="analyzing-data">
+<h2>Analyzing data<a class="headerlink" href="#analyzing-data" title="Permalink to this heading">#</a></h2>
+<p>NumPy has several useful functions that take an array as input to perform operations on its values.
+If we want to find the average inflammation for all patients on
+all days, for example, we can ask NumPy to compute <code class="docutils literal notranslate"><span class="pre">data</span></code>’s mean value:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9949353961538463
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, this is not very meaningful because it’s a mean over positions, velocities, etc.
+Instead, we can ask for the average position (or velocity) over all time steps.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># average position</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]))</span>
+
+<span class="c1"># average velocity</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1281684307692308
+-0.14842684615384616
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-data">
+<h2>Visualizing data<a class="headerlink" href="#visualizing-data" title="Permalink to this heading">#</a></h2>
+<p>Visualization deserves an entire lecture of its own, but we can explore a few features of Python’s <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library here.
+While there is no official plotting library, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is the <em>de facto</em> standard.
+First, we will import the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> module from <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and use it to create and display our data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Velocity&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Position or velocity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/9cb078acb437b3272d6e4c05741e1cb927c997213f512ff28093c03dd3dce7a1.png" src="../../_images/9cb078acb437b3272d6e4c05741e1cb927c997213f512ff28093c03dd3dce7a1.png" />
+</div>
+</div>
+</section>
+<section id="make-your-own-plot">
+<h2>Make your own plot<a class="headerlink" href="#make-your-own-plot" title="Permalink to this heading">#</a></h2>
+<p>Create a plot showing the position, velocity, and acceleration of the point at each time step.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./labs/lab1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../assignments/assignment1/assignment1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Assignment 1</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../quizzes/quiz1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quiz 1</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-array-basics">NumPy array basics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data-with-numpy">Loading data with Numpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slicing-data">Slicing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-data">Analyzing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-data">Visualizing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-your-own-plot">Make your own plot</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Javier Duarte
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

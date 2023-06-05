@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to NEMO - A Stellar Dynamics Toolbox &#8212; UCSD PHYS 141/241</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab5/nemo';</script>
+    <link rel="canonical" href="https://jduarte.physics.ucsd.edu/phys141/labs/lab5/nemo.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Mice.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Mice.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    UCSD PHYS 141/241: Computational Physics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 1</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/01_Introduction.pdf">Lecture 01: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/02_Newton.pdf">Lecture 02: Newtonian, Hamiltonian, Lagrangian Mechanics</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/03_Numerical_Methods.pdf">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/03_Numerical_Methods.html">Lecture 03: Numerical Integration Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment1/assignment1.html">Assignment 1</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/04_Numerical_Methods_Continued.pdf">Lecture 04: Numerical Integration Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab1/Lab1.html">Lab 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/05_NBody.pdf">Lecture 05: N-Body Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quizzes/quiz1.html">Quiz 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab2/Lab2_Numba.html">Lab 2: Numba</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/06_NBody_Continued.pdf">Lecture 06: N-Body Problem (Continued)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 3</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/07_CBE.pdf">Lecture 07: Collisionless Boltzmann Equation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/08_Jeans_Plummer.pdf">Lecture 08: Jeans Therom and Plummer Model</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/09_Plummer_MC.pdf">Lecture 09: Plummer Model and Monte Carlo Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quizzes/quiz2.html">Quiz 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 4</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://jduarte.physics.ucsd.edu/phys141/lectures/10_Plummer_MC_Continued.pdf">Lecture 10: Plummer Model and Monte Carlo Methods (Continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assignments/assignment2/assignment2.html">Assignment 2</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Week 5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../midterm_final/midterm_final.html">Midterm and Final Projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmduarte/phys141/issues/new?title=Issue%20on%20page%20%2Flabs/lab5/nemo.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab5/nemo.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to NEMO - A Stellar Dynamics Toolbox</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-nemo-environment">Activate NEMO Environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-nemo-a-stellar-dynamics-toolbox">
+<h1>Introduction to NEMO - A Stellar Dynamics Toolbox<a class="headerlink" href="#introduction-to-nemo-a-stellar-dynamics-toolbox" title="Permalink to this heading">#</a></h1>
+<section id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://teuben.github.io/nemo/">NEMO Home Page</a></p></li>
+<li><p><a class="reference external" href="https://github.com/teuben/nemo">NEMO GitHub</a></p></li>
+<li><p><a class="reference external" href="https://teuben.github.io/nemo/man_html/">NEMO Reference Manual (Old Manual)</a></p></li>
+<li><p><a class="reference external" href="https://astronemo.readthedocs.io/en/latest/index.html#">NEMO Read the Docs (New Manual)</a></p></li>
+<li><p><a class="reference external" href="https://projets.lam.fr/projects/glnemo2/wiki">GLNEMO2</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=C0XNyTp5brM&amp;ab_channel=HubbleSpaceTelescope">Galaxy Collision</a>, <a class="reference external" href="https://www.youtube.com/watch?v=4disyKG7XtU&amp;ab_channel=VideoFromSpace">Milky Way Meets Andromeda</a></p></li>
+</ul>
+</section>
+<section id="activate-nemo-environment">
+<h2>Activate NEMO Environment<a class="headerlink" href="#activate-nemo-environment" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>Local (Lab iMac)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/usr/local/physics/nemo_new/nemo/nemo_start.sh
+</pre></div>
+</div>
+</li>
+<li><p>DSMLP</p>
+<p>Choose the <code class="docutils literal notranslate"><span class="pre">phys141</span></code> image and start a terminal.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/home/jovyan/nemo/nemo_start.sh
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Note that the NEMO installation in Lab iMac and DSMLP are not the latest/full version. Some features may not work like you see in the docs.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>Simple Disk Galaxy</p>
+<p>Note: the current version of the DSMLP <code class="docutils literal notranslate"><span class="pre">phys141</span></code> image does not have <code class="docutils literal notranslate"><span class="pre">glnemo2</span></code> installed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># This exercise is specifically for the iMacs in the lab</span>
+
+<span class="c1"># add glnemo2 library to PATH</span>
+<span class="nv">PATH</span><span class="o">=</span>/usr/local/physics/bin/glnemo2.app/Contents/MacOS:<span class="nv">$PATH</span>
+
+<span class="c1"># create initial disk galaxy</span>
+magalie<span class="w"> </span>gal.ic<span class="w"> </span><span class="nv">ndisk</span><span class="o">=</span><span class="m">10000</span><span class="w"> </span><span class="nv">nbulge</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">nhalo</span><span class="o">=</span><span class="m">10000</span>
+
+<span class="c1"># The first ten thousand particles (indices 0:9999) are the disk</span>
+<span class="c1"># Inspect the disk:</span>
+glnemo2<span class="w"> </span>gal.ic<span class="w"> </span><span class="m">0</span>:9999<span class="w"> </span><span class="nv">xrot</span><span class="o">=</span><span class="m">90</span>
+
+<span class="c1"># The next ten thousand particles (indices 10000:19999) are the halo</span>
+<span class="c1"># Inspect the halo:</span>
+glnemo2<span class="w"> </span>gal.ic<span class="w"> </span><span class="m">10000</span>:19999<span class="w"> </span><span class="nv">xrot</span><span class="o">=</span><span class="m">90</span>
+
+<span class="c1"># run N-body simulation for 50 time units</span>
+gyrfalcON<span class="w"> </span>gal.ic<span class="w"> </span>gal.out<span class="w"> </span><span class="nv">tstop</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">step</span><span class="o">=</span><span class="m">0</span>.1<span class="w"> </span><span class="nv">kmax</span><span class="o">=</span><span class="m">6</span><span class="w"> </span><span class="nv">eps</span><span class="o">=</span><span class="m">0</span>.03
+
+<span class="c1"># Inspect the result</span>
+glnemo2<span class="w"> </span>gal.out<span class="w"> </span><span class="m">0</span>:9999,10000:19999
+
+<span class="c1"># prepare to make a video</span>
+mkdir<span class="w"> </span>frames
+<span class="nb">cd</span><span class="w"> </span>frames
+
+<span class="c1"># use glnemo2 to generate the frames</span>
+glnemo2<span class="w"> </span>../gal.out<span class="w"> </span><span class="m">0</span>:9999<span class="w"> </span><span class="nv">hsize</span><span class="o">=</span><span class="m">400</span><span class="w"> </span><span class="nv">wsize</span><span class="o">=</span><span class="m">400</span><span class="w"> </span><span class="nv">play</span><span class="o">=</span>t<span class="w"> </span><span class="nv">screenshot</span><span class="o">=</span>frame
+
+<span class="c1"># generate the video</span>
+ffmpeg<span class="w"> </span>-y<span class="w"> </span>-i<span class="w"> </span>frame.%05d.jpg<span class="w"> </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-vf<span class="w"> </span><span class="nv">fps</span><span class="o">=</span><span class="m">20</span><span class="w"> </span>-pix_fmt<span class="w"> </span>yuv420p<span class="w"> </span>video.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Bare Unstable Disk</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a bare unstable disk</span>
+mkbaredisk<span class="w"> </span>disk.ic<span class="w"> </span><span class="m">10000</span>
+
+<span class="c1"># Check the initial conditions:</span>
+glnemo2<span class="w"> </span>disk.ic<span class="w"> </span>all<span class="w"> </span><span class="nv">point</span><span class="o">=</span>t<span class="w"> </span><span class="nv">psize</span><span class="o">=</span><span class="m">5</span>
+
+<span class="c1"># Run the simulation:</span>
+gyrfalcON<span class="w"> </span>disk.ic<span class="w"> </span>disk.out<span class="w"> </span><span class="nv">tstop</span><span class="o">=</span><span class="m">10</span><span class="w"> </span><span class="nv">kmax</span><span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="nv">step</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">eps</span><span class="o">=</span><span class="m">0</span>.03
+
+<span class="c1"># View the result:</span>
+glnemo2<span class="w"> </span>disk.out<span class="w"> </span>all<span class="w"> </span><span class="nv">point</span><span class="o">=</span>t<span class="w"> </span><span class="nv">psize</span><span class="o">=</span><span class="m">5</span>
+</pre></div>
+</div>
+</li>
+<li><p>More Advanced Galaxies</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># build WD99disc</span>
+mkWD99disc<span class="w"> </span><span class="nv">out</span><span class="o">=</span>WDdisc_init.snp<span class="w"> </span><span class="nv">nbody</span><span class="o">=</span><span class="m">100000</span><span class="w"> </span><span class="nv">Sig_0</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">Q</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># N-body simulation</span>
+gyrfalcON<span class="w"> </span><span class="k">in</span><span class="o">=</span>WDdisc_init.snp<span class="w"> </span><span class="nv">out</span><span class="o">=</span>WDdisc_run.snp<span class="w"> </span><span class="nv">tstop</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">step</span><span class="o">=</span><span class="m">0</span>.1<span class="w"> </span><span class="nv">eps</span><span class="o">=</span><span class="m">0</span>.01<span class="w"> </span><span class="nv">kmax</span><span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="nv">logfile</span><span class="o">=</span>disc.log
+
+<span class="c1"># view the result</span>
+glnemo2<span class="w"> </span>WDdisc_run.snp
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># build complete galaxy with mkgalaxy:</span>
+mkgalaxy<span class="w"> </span><span class="nv">name</span><span class="o">=</span>testgalaxy
+
+<span class="c1"># view the components of the galaxy in glnemo2:</span>
+glnemo2<span class="w"> </span>testgalaxy.snp<span class="w"> </span><span class="m">0</span>:39999
+
+<span class="c1"># run the n-body evolution of galaxy with gyrfalcON:</span>
+gyrfalcON<span class="w"> </span><span class="k">in</span><span class="o">=</span>testgalaxy.snp<span class="w"> </span><span class="nv">out</span><span class="o">=</span>xrun50k4.snp<span class="w"> </span><span class="nv">tstop</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">step</span><span class="o">=</span><span class="m">0</span>.1<span class="w"> </span><span class="nv">eps</span><span class="o">=</span><span class="m">0</span>.01<span class="w"> </span><span class="nv">kmax</span><span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="nv">logfile</span><span class="o">=</span>xrun50k4.log
+
+<span class="c1"># view the simulation result:</span>
+glnemo2<span class="w"> </span>xrun50k4.snp<span class="w"> </span><span class="m">0</span>:39999
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Read more about <code class="docutils literal notranslate"><span class="pre">mkgalaxy</span></code> and <code class="docutils literal notranslate"><span class="pre">gyrfalcON</span></code> here <a class="reference download internal" download="" href="../../_downloads/09c8c7c576d9272cb3511332394244cc/mkgalaxy_user_guide.pdf"><span class="xref download myst">mkgalaxy user guide</span></a> and <a class="reference download internal" download="" href="../../_downloads/3e26d6713122e1273e8f5b7775fe8d44/gyrfalcON_user_guide.pdf"><span class="xref download myst">gyrfalcON user guide</span></a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./labs/lab5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-nemo-environment">Activate NEMO Environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Javier Duarte
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

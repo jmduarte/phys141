@@ -1,0 +1,48 @@
+Traceback (most recent call last):
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+num_bodies = 100
+num_steps = len(m) // num_bodies
+
+# delete old plots
+for file in os.listdir('build'):
+    if file.startswith('py_'):
+        os.remove(os.path.join('build', file))
+
+# save plots of frames
+for i in range(num_steps):
+    plt.figure(figsize=(10, 10))
+    plt.scatter(x[i*num_bodies:(i+1)*num_bodies], y[i*num_bodies:(i+1)*num_bodies], s=1)
+    plt.xlim(-1, 1)
+    plt.ylim(-1, 1)
+    plt.title(f'time = {t[i*num_bodies]:.2f}')
+    plt.savefig(f'build/py_{i:03d}.png')
+    plt.close()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+Cell [0;32mIn[7], line 5[0m
+[1;32m      2[0m num_steps [38;5;241m=[39m [38;5;28mlen[39m(m) [38;5;241m/[39m[38;5;241m/[39m num_bodies
+[1;32m      4[0m [38;5;66;03m# delete old plots[39;00m
+[0;32m----> 5[0m [38;5;28;01mfor[39;00m file [38;5;129;01min[39;00m [43mos[49m[38;5;241;43m.[39;49m[43mlistdir[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mbuild[39;49m[38;5;124;43m'[39;49m[43m)[49m:
+[1;32m      6[0m     [38;5;28;01mif[39;00m file[38;5;241m.[39mstartswith([38;5;124m'[39m[38;5;124mpy_[39m[38;5;124m'[39m):
+[1;32m      7[0m         os[38;5;241m.[39mremove(os[38;5;241m.[39mpath[38;5;241m.[39mjoin([38;5;124m'[39m[38;5;124mbuild[39m[38;5;124m'[39m, file))
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'build'
+

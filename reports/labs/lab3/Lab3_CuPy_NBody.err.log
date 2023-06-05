@@ -1,0 +1,94 @@
+Traceback (most recent call last):
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import cupy as cp
+import numpy as np
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mImportError[0m                               Traceback (most recent call last)
+File [0;32m/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/cupy/__init__.py:17[0m
+[1;32m     16[0m [38;5;28;01mtry[39;00m:
+[0;32m---> 17[0m     [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m [38;5;28;01mimport[39;00m _core  [38;5;66;03m# NOQA[39;00m
+[1;32m     18[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m [38;5;28;01mas[39;00m exc:
+
+File [0;32m/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/cupy/_core/__init__.py:3[0m
+[1;32m      1[0m [38;5;66;03m# mypy: ignore-errors[39;00m
+[0;32m----> 3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_core[39;00m [38;5;28;01mimport[39;00m core  [38;5;66;03m# NOQA[39;00m
+[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_core[39;00m [38;5;28;01mimport[39;00m fusion  [38;5;66;03m# NOQA[39;00m
+
+File [0;32mcupy/_core/core.pyx:1[0m, in [0;36minit cupy._core.core[0;34m()[0m
+
+File [0;32m/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/cupy/cuda/__init__.py:8[0m
+[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_environment[39;00m [38;5;28;01mimport[39;00m get_hipcc_path  [38;5;66;03m# NOQA[39;00m
+[0;32m----> 8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcuda[39;00m [38;5;28;01mimport[39;00m compiler  [38;5;66;03m# NOQA[39;00m
+[1;32m      9[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcuda[39;00m [38;5;28;01mimport[39;00m device  [38;5;66;03m# NOQA[39;00m
+
+File [0;32m/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/cupy/cuda/compiler.py:14[0m
+[1;32m     13[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcuda[39;00m [38;5;28;01mimport[39;00m device
+[0;32m---> 14[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcuda[39;00m [38;5;28;01mimport[39;00m function
+[1;32m     15[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcuda[39;00m [38;5;28;01mimport[39;00m get_rocm_path
+
+File [0;32mcupy/cuda/function.pyx:1[0m, in [0;36minit cupy.cuda.function[0;34m()[0m
+
+File [0;32mcupy/_core/_carray.pyx:1[0m, in [0;36minit cupy._core._carray[0;34m()[0m
+
+File [0;32mcupy/_core/internal.pyx:1[0m, in [0;36minit cupy._core.internal[0;34m()[0m
+
+File [0;32mcupy/cuda/memory.pyx:1[0m, in [0;36minit cupy.cuda.memory[0;34m()[0m
+
+[0;31mImportError[0m: libcuda.so.1: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+[0;31mImportError[0m                               Traceback (most recent call last)
+Cell [0;32mIn[2], line 1[0m
+[0;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mcupy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mcp[39;00m
+[1;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+
+File [0;32m/usr/share/miniconda/envs/phys141/lib/python3.9/site-packages/cupy/__init__.py:19[0m
+[1;32m     17[0m     [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m [38;5;28;01mimport[39;00m _core  [38;5;66;03m# NOQA[39;00m
+[1;32m     18[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m [38;5;28;01mas[39;00m exc:
+[0;32m---> 19[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m([38;5;124mf[39m[38;5;124m'''[39m
+[1;32m     20[0m [38;5;124m================================================================[39m
+[1;32m     21[0m [38;5;132;01m{[39;00m_environment[38;5;241m.[39m_diagnose_import_error()[38;5;132;01m}[39;00m
+[1;32m     22[0m 
+[1;32m     23[0m [38;5;124mOriginal error:[39m
+[1;32m     24[0m [38;5;124m  [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m(exc)[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m}[39;00m[38;5;124m: [39m[38;5;132;01m{[39;00mexc[38;5;132;01m}[39;00m
+[1;32m     25[0m [38;5;124m================================================================[39m
+[1;32m     26[0m [38;5;124m'''[39m) [38;5;28;01mfrom[39;00m [38;5;21;01mexc[39;00m
+[1;32m     29[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcupy[39;00m [38;5;28;01mimport[39;00m cuda  [38;5;66;03m# NOQA[39;00m
+[1;32m     30[0m [38;5;66;03m# Do not make `cupy.cupyx` available because it is confusing.[39;00m
+
+[0;31mImportError[0m: 
+================================================================
+Failed to import CuPy.
+
+If you installed CuPy via wheels (cupy-cudaXXX or cupy-rocm-X-X), make sure that the package matches with the version of CUDA or ROCm installed.
+
+On Linux, you may need to set LD_LIBRARY_PATH environment variable depending on how you installed CUDA/ROCm.
+On Windows, try setting CUDA_PATH environment variable.
+
+Check the Installation Guide for details:
+  https://docs.cupy.dev/en/latest/install.html
+
+Original error:
+  ImportError: libcuda.so.1: cannot open shared object file: No such file or directory
+================================================================
+
+
