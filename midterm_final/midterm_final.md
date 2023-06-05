@@ -166,7 +166,7 @@ Antennae midterm examples:
  
 
 ### Final: Antennae Project
-[Barnes, 2004](barnes_mice.pdf) designed a realistic full simulation of the Antennae encounter using realistic bulge-disk-halo galaxy model with elliptic encounter.
+[Barnes, 1988](barnes_antennae.pdf) designed a realistic full simulation of the Antennae encounter using realistic bulge-disk-halo galaxy model with elliptic encounter.
 For the initial condition, consider to separate galaxies on elliptic collision course with $e=0.5$.
 Galaxy A and galaxy B do not overlap initially, and the center of masses of the individual galaxies would continue on an elliptic orbit, if the interactions of the stars would not change the picture when the galaxies begin to overlap.
 
